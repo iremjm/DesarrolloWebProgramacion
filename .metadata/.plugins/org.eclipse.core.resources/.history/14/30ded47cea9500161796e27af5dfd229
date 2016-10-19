@@ -1,0 +1,36 @@
+package EstrucuturasRepetitivas;
+
+import java.util.Scanner;
+
+//Escribe los 50 primeros pares por consola
+public class Pares50 {
+
+	public static void main(String[] args) {
+			for(int numero=2;numero<=100;numero=numero+2){
+		
+			System.out.print(numero + " ");
+		}			
+//Salto de linea
+			System.out.println(" ");
+//Escribe impares los 50 primeros impares por consola
+			for(int num=1;num<=100;num=num+2){
+				System.out.print(num + " ");
+			}
+//Salto de linea
+			System.out.println(" ");
+//Factorial pide un número por sonsola y muestra su factorial
+			
+			long numero;
+			long facatorial=1;
+			Scanner teclado= new Scanner (System.in);
+			System.out.println("Ingrese un número");
+			numero= teclado.nextLong();
+			int auxiliar;
+			for ( auxiliar=1; auxiliar<=numero;auxiliar++){
+				//auxiliar*=numero;
+				numero=numero*auxiliar;
+				
+			}
+			System.out.println(numero);
+		}
+	}

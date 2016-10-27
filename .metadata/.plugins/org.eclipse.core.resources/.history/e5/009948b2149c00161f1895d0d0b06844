@@ -1,0 +1,25 @@
+package EstrucuturasRepetitivas.For.While;
+
+import javax.swing.JOptionPane;
+
+public class SumaHasta0 {
+
+	public static void main(String[] args) {
+		int suma=0;
+		int contador=0;
+		int	numero;
+		
+		while(numero==0){
+			contador++;
+		 String numero1= JOptionPane.showInputDialog("Introduce un número, por favor");
+		 int num=Integer.parseInt(numero1);
+		 
+		 suma+=num;
+		}//while
+		JOptionPane.showMessageDialog( null,"El resultado de"+ num  +"es "+ suma +".\n"+
+		"Sigue sumando.");		 
+	}
+
+
+
+}

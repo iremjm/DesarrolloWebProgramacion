@@ -1,0 +1,14 @@
+package EstrucuturasRepetitivas.For;
+
+public class Suma4for {
+
+	public static void main(String[] args) {
+		
+		int num;
+		int suma;
+		for(){
+			
+		}//for
+	}
+
+}

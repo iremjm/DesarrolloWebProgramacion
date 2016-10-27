@@ -1,4 +1,4 @@
-//Pedir al usuario número haste que introduzca un núemro negativo 
+//Pedir al usuario número haste que introduzca un núemero negativo 
 //y muestra la cantidad de números.
 package EstrucuturasRepetitivas.For.While;
 

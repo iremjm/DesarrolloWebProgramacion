@@ -1,0 +1,28 @@
+package EstrucuturasRepetitivas.For.While;
+//Pide númros al usuario hasta que introduzca 0 y muestra
+//la cantidad de numeros introducidos y su suma
+import javax.swing.JOptionPane;
+
+public class SumaHasta0 {
+
+	public static void main(String[] args) {
+		int suma=0;
+		int contador=0;
+		int	numero=0;
+		
+		while(numero==0){
+			contador++;
+		 String numero1= JOptionPane.showInputDialog("Introduce un número, por favor");
+		 int num=Integer.parseInt(numero1);		
+		 
+		 suma+=num;
+		}//while
+		String resultado= Integer.toString(suma);
+		JOptionPane.showMessageDialog( null,"El resultado de"+ resultado  +"has introducido "+
+		contador + " numeros" + ".\n"+
+		"Sigue sumando.");		 
+	}
+
+
+
+}

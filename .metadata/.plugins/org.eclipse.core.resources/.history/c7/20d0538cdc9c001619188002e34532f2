@@ -1,0 +1,38 @@
+package EstrucuturasRepetitivas.For.DoWhile;
+import java.time.*;
+import java.util.Scanner;
+
+public class EjercicioMenu {
+
+	public static void main(String[] args) {
+		Scanner teclado= new Scanner (System.in);
+	//Definimos las variables
+		int opcionSelec=0;
+	//mostrar menu
+		System.out.println("Selecccione una opcion:\n1:Saludo:\n2:Hora:\n3:Fecha:\n4:Salir:");
+
+		do{
+			//Seleccionamos el número
+			opcionSelec= teclado.nextInt();
+			//ejecutamos opcion selecionada
+			switch(opcionSelec){
+			case 1://Muestro saludo
+				System.out.println("Bienvenido");
+				break;
+			case 2://Muestro la hora
+				LocalDateTime today = LocalDateTime.now();
+				System.out.println("Current DateTime="+today);
+				break;
+			case 3://Muestro las fecha
+			default://Muestro error
+				System.out.println("Ingrese un valor válido");
+		}//swithc
+		}//do
+		//Si es 4: salimos
+		while(opcionSelec !=4);
+	
+			System.out.println("Ha salido correctamente");
+		//while
+	}//main
+
+}//class

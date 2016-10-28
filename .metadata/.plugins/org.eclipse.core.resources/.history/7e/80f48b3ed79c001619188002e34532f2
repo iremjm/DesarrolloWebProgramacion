@@ -1,0 +1,12 @@
+package EstrucuturasRepetitivas.For.DoWhile;
+
+public class EjercicioMenu {
+
+	public static void main(String[] args) {
+	//Definimos las variables
+	//mostrar menu
+	//ejecutamos opcion selecionada
+
+	}
+
+}

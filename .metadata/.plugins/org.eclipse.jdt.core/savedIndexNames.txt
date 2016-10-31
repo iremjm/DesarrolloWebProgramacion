@@ -14,7 +14,6 @@ INDEX VERSION 1.129+D:\jose_mari_t\DesarrolloWebProgramacion-master\.metadata\.p
 1626881144.index
 1052896277.index
 2297306728.index
-3676882228.index
 1549223852.index
 3926372014.index
 2721304948.index

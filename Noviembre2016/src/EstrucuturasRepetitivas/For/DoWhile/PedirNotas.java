@@ -1,35 +1,54 @@
 package EstrucuturasRepetitivas.For.DoWhile;
 
+
 import java.util.Scanner;
 
-/* lea una secuencia de notas que se van introduciendo por el teclado 
- * (las notas serán valores numéricos que pueden contener decimales).
- * La secuencia de notas finalizará cuando se introduzca un valor negativo.
- * El programa informará al final del número de aprobados,
- * el número de suspensos y la nota media. El programa deberá controlar los
- * posibles errores que se puedan producir a la hora de introducir las notas 
- * por teclado de tal forma que si alguna nota introducida 
- * fuera errónea la vuelva a solicitar.*/
-public class PedirNotas {
+/* Lea Una Secuencia de notas Que se van introduciendo por el teclado 
+ * (Las notas Séran Valores Numéricos Que pueden Contener Decimales).
+ * La Secuencia de notas finalizará Cuando Se introduzca negativo valor de las notas.
+ * El Programa informará Al final del Número de aprobados,
+ * El Número de suspensos y la nota media. El Programa debera Controlar los
+ * Posibles Errores Que se puedan Producir un La hora de introducir las notas 
+ * Por teclado de tal forma Que Si Alguna nota introducida 
+ * Fuera erronea La Vuelva a Solicitar. */
+ public class PedirNotas {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		//Creammos la clase teclado
-		Scanner teclado=new Scanner(System.in);
-		//Definimos las variables
-		double notas=0;
+		// Generada automáticamente TODO Stub
+		// Creammos La Clase teclado
+		Scanner teclado = new  Scanner ( System.in);
+		// Definimos las variables
+		double nota=0;
 		int contador=0;
-		int suma=0;
-		//Pedimos las notas
-		//Ingresamos las notas
-		do{contador++;
-		System.out.print("Introduce un numero: ");
-		notas=teclado.nextInt();
-		suma+=notas;}//do
-		while (notas<0);
-		System.out.println("");
-		//Comprobamos que las notas sean correctas
-		//
+		double resultado=0;
+		int aprobados=0;
+		int suspensos=0;
+		do {
+		// Pedimos las notas
+		System.out.println( " Introducir nota: (ingrese un número negativo para terminar)" );
+		// Ingresamos las notas
+		nota=teclado.nextDouble();
+			//Comprobamos que la nota es correcta
+			
+			if (nota<=10 && nota>=5){
+			resultado=nota+resultado;
+			contador++;
+			aprobados++;
+			}//if
+			else if(nota<5 && nota>=0){
+			resultado=nota+resultado;
+			contador++;
+			suspensos++;
+			}//else if
+			else{
+				System.out.println("Introduzca una nota correcta entre 0 y 10 puntos");
+			}
+		}//do
+		while(nota>=0);
+		System.out.println( "La nota media es  " + (resultado/contador));
+		System.out.println( "El total de aprobados es de " + aprobados);
+		System.out.println( "El total de suspensos es de " + suspensos);
+		
 	}//main
 
-}
+}//class

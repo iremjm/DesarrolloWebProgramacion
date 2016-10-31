@@ -1,0 +1,37 @@
+package EstrucuturasRepetitivas.For.DoWhile;
+
+import java.util.Scanner;
+import java.util.StringTokenizer;
+
+/*Realizar un programa que comprueba si un ISBN es correcto:
+http://gaussianos.com/detectar-si-un-isbn-es-erroneo/
+*/
+public class ISBN {
+
+	public static void main(String[] args) {
+		Scanner teclado= new Scanner(System.in);
+		//definimos las variables
+		int numISBN;
+		int contador=0;
+		int cifras;
+		//pedimos el número
+		System.out.println("Introduce el ISBN");
+		numISBN= teclado.nextInt();
+		do{
+		//comprobamos la longitud del número
+			cifras= 0;    //esta variable es el contador de cifras
+            while(n!=0){             //mientras a n le queden cifras
+                    n = n/10;         //le quitamos el último dígito
+                   cifras++;          //sumamos 1 al contador de cifras
+            }
+		
+		if(comprobar==10){
+			
+		}//if
+		comprobar
+	
+		}//do
+		while(comprobar==10);
+	}
+
+}

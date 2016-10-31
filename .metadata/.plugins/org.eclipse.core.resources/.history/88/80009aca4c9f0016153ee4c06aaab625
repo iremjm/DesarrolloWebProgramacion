@@ -1,0 +1,12 @@
+package EstrucuturasRepetitivas.For.DoWhile;
+/*Realizar un programa que comprueba si un ISBN es correcto:
+http://gaussianos.com/detectar-si-un-isbn-es-erroneo/
+*/
+public class ISBN {
+
+	public static void main(String[] args) {
+
+
+	}
+
+}

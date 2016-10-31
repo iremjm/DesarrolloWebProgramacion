@@ -30,7 +30,7 @@ import java.util.Scanner;
 			//Comprobamos que la nota es correcta
 			if(nota>10){
 			System.out.println("Introduzca una nota correcta entre 0 y 10 puntos");
-			}// if
+		}//else if
 			else if (nota>=5){
 			resultado=nota+resultado;
 			aprobados++;

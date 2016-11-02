@@ -15,15 +15,10 @@ public class NotasArrays {
 				System.out.print("Ingrese la nota " + (i+1) + " : ");
 				int nota=teclado.nextInt();
 				tNotas[i]=nota;
-			
-		}//for
-		//Calculamos la nota media
-		for (int j=0;j<tNotas.length;j++){
-			suma+=tNotas[j];
-		}//for
-			
+				//Sumar notas
+				suma+=nota;
+		}
 		System.out.println(suma);
-		System.out.println("La media es :" +(double) suma/tNotas.length);
 	}//main
 		
 }//class

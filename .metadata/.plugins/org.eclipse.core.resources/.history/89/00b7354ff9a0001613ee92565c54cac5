@@ -23,7 +23,6 @@ public class NotasArrays {
 		}//for
 			
 		System.out.println(suma);
-		System.out.println("La media es :" +(double) suma/tNotas.length);
 	}//main
 		
 }//class

@@ -1,0 +1,47 @@
+package EstrucuturasRepetitivas.For.DoWhile;
+import java.util.Scanner;
+public class ISBN2 {
+
+	public static void main(String[] args) {
+		Scanner teclado= new Scanner(System.in);
+		String numIsbn="1234567893";
+		int contador=0;
+		int suma=0;
+		int digito = 0;
+		
+			//pedimos el isbn
+	//System.out.print("Introduzca el ISBN: ");
+			//ingresamos el isbn
+	//numIsbn= teclado.nextLine();
+		//damos o quitamos guiones en el primer argumanto el lo que se sustituye
+		numIsbn = numIsbn.replaceAll( "-", "" );
+			//comprobamos que tiene 10 digitos
+			int descomposicion= Integer.parseInt(numIsbn);
+				while (descomposicion>0){
+					descomposicion = descomposicion/10;
+					contador++;
+				}//while
+			
+				//en el segundo el sustituto
+				System.out.println(numIsbn);
+			//si tiene 10 digitos continuamos
+			 System.out.println(contador);
+			if (contador==10){
+				for(int i=0;i>=9;i++){
+					digito = Integer.parseInt( numIsbn.substring( i, +i ) );
+					numIsbn= Integer.toString(digito);
+	                suma += ((10 - i) * digito);
+					System.out.print(digito);
+				}//for
+						
+			}//if
+			//si no tiene 10 dígitos damos un error
+			else {System.out.println("**************\nIngrese un número de 10 dígitos.\n****************");
+			}//else
+				System.out.println("El número " + numIsbn + " tiene " + contador + " dígitos.");
+				System.out.println(digito);
+				System.out.println(numIsbn.substring( 0,1 ));
+				
+	}
+
+}

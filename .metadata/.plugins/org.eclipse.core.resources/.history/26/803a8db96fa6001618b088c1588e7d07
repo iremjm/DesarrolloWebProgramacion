@@ -1,0 +1,23 @@
+package notas.model;
+
+public class Alumno {
+	private final int MAX_ASIGN=10;
+	private String nomAlum;
+	public String getNomAlum() {
+		return nomAlum;
+	}
+	public void setNomAlum(String nomAlum) {
+		this.nomAlum = nomAlum;
+	}
+	public String[] getAsignatura() {
+		return Asignatura;
+	}
+	public void setAsignatura(String[] asignatura) {
+		Asignatura = asignatura;
+	}
+	public int getMAX_ASIGN() {
+		return MAX_ASIGN;
+	}
+	private String [] Asignatura = new String [MAX_ASIGN];
+
+}

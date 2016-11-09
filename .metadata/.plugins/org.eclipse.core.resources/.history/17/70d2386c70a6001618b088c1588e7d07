@@ -1,0 +1,31 @@
+package notas.model;
+
+public class Alumno {
+	//definimos las variables
+	private final int MAX_ASIGN=10;
+	private String nomAlum;
+	private String [] Asignatura = new String [MAX_ASIGN];
+	//Metodos
+	//Metodo constructor
+	Alumno (String nomAlum){
+		this.nomAlum=nomAlum;
+	}//Alumno
+	public String getNomAlum() {
+		return nomAlum;
+	}
+	//Metodos getter and setter
+	public void setNomAlum(String nomAlum) {
+		this.nomAlum = nomAlum;
+	}
+	public String[] getAsignatura() {
+		return Asignatura;
+	}
+	public void setAsignatura(String[] asignatura) {
+		Asignatura = asignatura;
+	}
+	public int getMAX_ASIGN() {
+		return MAX_ASIGN;
+	}
+	
+
+}

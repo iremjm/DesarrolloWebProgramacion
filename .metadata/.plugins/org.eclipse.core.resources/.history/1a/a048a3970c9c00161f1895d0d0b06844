@@ -1,9 +1,0 @@
-package EstrucuturasRepetitivas.For.While;
-
-public class Suma4for {
-
-	public static void main(String[] args) {
-	
-	}
-
-}

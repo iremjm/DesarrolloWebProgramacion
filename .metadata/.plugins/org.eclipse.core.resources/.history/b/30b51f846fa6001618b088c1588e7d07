@@ -1,0 +1,5 @@
+package notas.model;
+
+public class Alumno {
+
+}

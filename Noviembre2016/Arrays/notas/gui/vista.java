@@ -25,21 +25,28 @@ public class vista {
 		//ingresar asignatura
 		asignatura=teclado.nextLine();
 		
-		while( (asignatura != null) || (!asignatura.equals(""))){
+		while((!asignatura.equals(""))){
 			//pedir nota
 			System.out.println("Ingrese la nota");
 			//ingresar nota
 			nota=teclado.nextDouble();
+			//reset
+			teclado.nextLine();
 			//crear la asignatura
 			Asignatura asig=new Asignatura(asignatura);
 			asig.setNota(nota);
 			//AÑADIR ASIGNATURA AL ALUMNO
-			alu1.addAsig(asignatura);
+			alu1.addAsig(asig);
 			//pido nombre asignatura
+			System.out.println("Ingrese la asignatura");
+			//ingresar asignatura
+			asignatura=teclado.nextLine();
 		}//while
 		
 		//mostrar resultado del expediente Juan[lm:4,prog:5,ddbb:7]
-		System.out.println("salida");
+		System.out.println("Ha salido del sistema");
+		
+		System.out.println(alu1);
 	
 	}
 }

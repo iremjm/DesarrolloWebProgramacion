@@ -20,7 +20,7 @@ public class Alumno {
 	}
 	public void addAsig(Asignatura asig){
 		
-		if(contAsig>MAX_ASIG){
+		if(contAsig<MAX_ASIG){
 			asignaturas[contAsig]=asig;
 			contAsig++;
 		}//if
@@ -28,5 +28,20 @@ public class Alumno {
 			System.out.println("NO se puede matricular");
 		}
 	}//addAsignatura
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		//StringBuffer lista=new StringBuffer();
+		//return  nombre +":"+nota;
+		String lista=nomAlum+"[";
+		for(int i=0;i<contAsig;i++){
+			lista=lista+asignaturas[i]+",";
+			
+		}//for
+	
+	//******************************************************************
+		return lista;
+		
+	}
 
 }

@@ -18,5 +18,13 @@ public class Asignatura {
 	public void setNota(double nota) {
 		this.nota = nota;
 	}
+	//Nos devuelve asignatura y nota 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return  nombre +":"+nota;
+	
+		
+	}
 
 }//class

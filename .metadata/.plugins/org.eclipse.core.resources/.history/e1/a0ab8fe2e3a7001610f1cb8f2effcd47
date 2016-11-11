@@ -58,42 +58,7 @@ public class Alumno {
 		}//for
 		lista=lista+"]";
 		return lista;
+		
 	}//toString
-	
-	public boolean equals(Alumno al) {
-		// TODO Auto-generated method stub
-		if(this.nomAlum.equals(al.nomAlum)){
-			return true;
-		
-		}//if
-		else{
-			return false;
-		}//else
-			
-		
-	}//equals
-	//devuelve la media del alumno
-	public double getMedia (){
-		double sumaNota=0;
-		double resultado=0;
-		for(int i=0; i<asignaturas.length; i++){
-			sumaNota=sumaNota+asignaturas[i].getNota();
-	}
-		resultado=sumaNota/contAsig;
-		return  resultado;
-		
-	}
-	/*//devuelve la asignatura con mejor nota
-	public Asignatura getMejorAsignatura(){
-		
-	}
-	//elimina todas las asignaturas
-	public void delExpediente(){
-		
-	}
-	//devuelve un array de asignatura
-	public Asignatura[] getAsignaturas(){
-		
-	}*/
 
 }

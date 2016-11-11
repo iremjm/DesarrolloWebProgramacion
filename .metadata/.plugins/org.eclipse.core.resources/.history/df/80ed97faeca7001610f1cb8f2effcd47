@@ -83,7 +83,7 @@ public class Alumno {
 		return  resultado;
 		
 	}
-	/*//devuelve la asignatura con mejor nota
+	//devuelve la asignatura con mejor nota
 	public Asignatura getMejorAsignatura(){
 		
 	}
@@ -94,6 +94,6 @@ public class Alumno {
 	//devuelve un array de asignatura
 	public Asignatura[] getAsignaturas(){
 		
-	}*/
+	}
 
 }

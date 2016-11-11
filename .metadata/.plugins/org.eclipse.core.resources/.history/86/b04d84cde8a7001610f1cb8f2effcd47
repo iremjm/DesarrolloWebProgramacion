@@ -43,8 +43,6 @@ public class vista {
 			asignatura=teclado.nextLine();
 		}//while
 		
-		System.out.println("La nota media de " + alu1.getNomAlum() + " es " + alu1.getMedia());
-		
 		//mostrar resultado del expediente Juan[lm:4,prog:5,ddbb:7]
 		System.out.println("Ha salido del sistema");
 		

@@ -88,20 +88,13 @@ public class Alumno {
 		
 	}
 	//devuelve la asignatura con mejor nota
-	public Asignatura getMaxNota(){
+	/*public Asignatura getMejorAsignatura(){
 		double mejorAsignatura=0;
-		for (int j=0;j<contAsig;j++){
+		for (int j=0;j<asignaturas.length;j++){
 			  if(asignaturas[j].getNota()>mejorAsignatura){
 		            mejorAsignatura=asignaturas[j].getNota();
-		            
-		}//if
-			  else{
-				  System.out.println();
-			  }
-			  return   Asignatura();
-			 
-			  
-	}//getMejorAsignatura
+		}
+	}//getMejorAsignatura*/
 	//elimina todas las asignaturas
 	/*public void delExpediente(){
 		

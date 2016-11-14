@@ -49,7 +49,6 @@ public class vista {
 		System.out.println("Ha salido del sistema");
 		//Muestro la media
 		System.out.println("La nota media de " + alu1.getNomAlum() + " es " + alu1.getMedia());
-		//Muestro los valores del alumno
 		System.out.println(alu1);
 	
 	}

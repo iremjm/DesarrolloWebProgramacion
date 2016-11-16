@@ -1,0 +1,16 @@
+import java.util.Scanner;
+
+public class Ejercicio2 {
+
+	public static void main(String[] args) {
+		Scanner teclado=new Scanner(System.in);
+		//definimos las variables
+		int dia = 0;
+		switch(dia){
+		case 1: 
+			System.out.println("Hoy es lunes");
+		break;
+		}
+	}
+
+}

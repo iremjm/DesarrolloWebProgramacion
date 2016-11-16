@@ -1,0 +1,68 @@
+import java.util.Scanner;
+
+public class Ejercicio3 {
+
+	public static void main(String[] args) {
+		//definimos las variables
+		Scanner teclado=new Scanner(System.in);
+		int nota=0;
+		int cont=0;
+		int suma = 0;
+		int media=0;
+		
+		do{
+			System.out.println("Introduce una nota");
+			if(nota>=0 && nota<=10){
+			nota=teclado.nextInt();
+			suma=suma+nota;
+			cont++;
+			}//if
+			else{
+				System.out.println("Nota no valida");
+			}
+		}//do
+		while(nota>=0);
+		media=suma/cont;
+	
+		System.out.print("Tienes un ");
+		switch(media){
+		case 0 : 
+			System.out.print("Suspenso");
+		case 1: 
+			System.out.print("Suspenso");
+		break;
+		case 2: 
+			System.out.print("Suspenso");
+		break;
+		case 3: 
+			System.out.print("Suspenso");
+		break;
+		case 4: 
+			System.out.print("Suspenso");
+		break;
+		case 5: 
+			System.out.print("Suficiente");
+		break;
+		case 6:
+			System.out.print("Bien");
+		break;
+		case 7: 
+			System.out.print("Notables");
+		break;
+		case 8: 
+			System.out.print("Notables");
+		break;
+		case 9: 
+			System.out.print("Sobresaliente");
+		break;
+		case 10: 
+			System.out.print("Sobresaliente");
+		break;
+	    }//swicth
+		System.out.print( "( "+media + ") ");
+	
+		System.out.println("Ha salido del sistema");
+	}
+	
+
+}

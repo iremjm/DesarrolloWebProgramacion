@@ -1,0 +1,22 @@
+import java.util.Scanner;
+
+public class Ejercicio3 {
+
+	public static void main(String[] args) {
+		//definimos las variables
+		Scanner teclado=new Scanner(System.in);
+		double nota=0;
+		int cont=0;
+		double suma;
+		
+		do{
+			System.out.println("Introduce una nota");
+			nota=teclado.nextDouble();
+			
+		}
+		while(nota<=0);
+		System.out.println("Ha salido del sistema");
+	}
+	
+
+}

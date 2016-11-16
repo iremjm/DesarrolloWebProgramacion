@@ -1,0 +1,27 @@
+import java.sql.Date;
+import java.util.Scanner;
+
+public class Ejercicio1 {
+
+	public static void main(String[] args) {
+		Scanner teclado=new Scanner (System.in);
+		Date fecha = new Date(0);
+		String nombre;
+		int anho;
+		int actual=2016;
+		
+		//mostrar mensajes 
+		System.out.println("Introduce tu nombre");
+		nombre= teclado.nextLine(); 
+		System.out.println("Introduce año de nacimiento");
+		anho =teclado.nextInt();
+		
+		System.out.println("Nacimiento: " + anho);
+		System.out.println("Nombre: " + nombre);
+		
+		System.out.println(nombre+ " tienes " + (fecha.getMonth()-anho)+"años");
+		
+	
+	}
+	
+}

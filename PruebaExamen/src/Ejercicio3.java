@@ -14,8 +14,8 @@ public class Ejercicio3 {
 			System.out.println("Introduce una nota");
 			nota=teclado.nextDouble();
 			if(nota>=0 && nota<=10){
-			suma=suma+nota;
-			cont++;
+				suma=suma+nota;
+				cont++;
 			}//if
 			else{
 				System.out.println("Nota no valida");

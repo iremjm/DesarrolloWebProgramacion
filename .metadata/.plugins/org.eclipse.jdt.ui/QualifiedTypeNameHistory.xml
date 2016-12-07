@@ -6,7 +6,12 @@
 <fullyQualifiedTypeName name="java.util.StringTokenizer"/>
 <fullyQualifiedTypeName name="notas.model.Alumno"/>
 <fullyQualifiedTypeName name="notas.model.Asignatura"/>
-<fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="java.sql.Date"/>
 <fullyQualifiedTypeName name="java.util.Scanner"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="Garaje.clases.Vehiculos"/>
+<fullyQualifiedTypeName name="Ejercicio4.coche.Vehiculo"/>
+<fullyQualifiedTypeName name="Garaje.clases.Garaje"/>
+<fullyQualifiedTypeName name="java.time.Year"/>
+<fullyQualifiedTypeName name="processing.core.PApplet"/>
 </qualifiedTypeNameHistroy>

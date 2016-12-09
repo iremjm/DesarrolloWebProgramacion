@@ -1,14 +1,19 @@
 import processing.core.PApplet;
 
 public class Processing1 extends PApplet{
-	private int rad = 30;//Ancho de la forma 
-	private float xpos, ypos;// Posición de la forma a partir BOLA
-	private float xPosPala, yPosPala;// Posición de la forma a partir PALA
+	//bola/////////////////////////////////////////////////
+	private int rad = 20;//Ancho de la forma 
+	private float xpos, ypos;// Posición de la forma BOLA
 	private float xvelocidad = 2.8f;// Velocidad de la forma BOLA 
 	private float yvelocidad =2.2f;// Velocidad de la forma BOLA
 	private int xdireccion = 1;// Izquierda o derecha BOLA 
 	private int ydireccion = 1;// De arriba a abajo BOLA
-
+	//pala////////////////////////////////////////////////
+	private int x,y;
+	private int largo;
+	private int xpdireccion=1;
+	private float xPosPala, yPosPala;// Posición de la forma a partir PALA
+	
 	public static void main(String[] args) {
 			PApplet.main("Processing1");
 		
@@ -20,18 +25,21 @@ public class Processing1 extends PApplet{
 	    public void setup(){//inicia
 	        fill(1,50,240);//color bola
 	        noStroke();
-	        frameRate(30);
+	        frameRate(50);
 	        ellipseMode(RADIUS);
 	        // Establecer la posición inicial de la forma 
 	        xpos = width/2;
 	        ypos = height/2;
+	        //establecer la posicion inicial de la pala en el centro
+	        x=width/2-50;
+	        y=height-50;
 	        
 	    }//setup
 	    
 	    public void draw(){
   
 	        background(255);//fondo lienzo
-	
+	        //bola//////////////////////////////////
 	        xpos = xpos + ( xvelocidad * xdireccion );
 	        ypos = ypos + ( yvelocidad * ydireccion );
 	        //PAREDES
@@ -43,10 +51,40 @@ public class Processing1 extends PApplet{
 	        if (ypos > height-rad || ypos < rad) {
 	          ydireccion *= -1;
 	        }
+	        //pala//////////////////////////////////
+	        //dibujar rectangulo
+	        rect(x,y,100,20);
+	        if(keyPressed && key == CODED){
+	        	if(keyCode == LEFT){
+	        		//si todavía no ha llegado a la pared izda, puede ir a la izda
+	        		if(x>0){
+	        			x=x-10;
+		        		
+	        		}	
+	        	}else if(keyCode == RIGHT){
+	        		//si todavía no ha llegado a la pared derecha, puede ir a la derecha
+	        		if(x<300){
+	        		x=x+10;
+	        		}
+	        	}
+	        	
+	        }
+	        //bola choque pala
+	        if(xpos+10>=x && (xpos-10<=x+50)){
+	        	ypos=ypos-10;
+	        }
+	        //bola choque pared
+	        if((x+400)<=0 ){
+	        		x=x+10;
+	        	if((x+400)>=width){
+	        		x=x-10;
+	        	}
+	        		      
+	        	
+	        }
 	        //dibujar la bola
 	        ellipse(xpos, ypos, rad, rad);
-	        //dibujar rectangulo
-	        rect(200, 350, 100, 30,10);
+	      	       
 	    }//draw
 	    
 	    

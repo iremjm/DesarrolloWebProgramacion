@@ -1,3 +1,4 @@
+
 import processing.core.PApplet;
 
 public class Processing1 extends PApplet{
@@ -9,7 +10,7 @@ public class Processing1 extends PApplet{
 	private int xdireccion = 1;// Izquierda o derecha BOLA 
 	private int ydireccion = 1;// De arriba a abajo BOLA
 	//pala////////////////////////////////////////////////
-	private int x,y;
+	private int x,y;//Posición de la pala
 	private int largo;
 	private int xpdireccion=1;
 	private float xPosPala, yPosPala;// Posición de la forma a partir PALA
@@ -25,7 +26,7 @@ public class Processing1 extends PApplet{
 	    public void setup(){//inicia
 	        fill(1,50,240);//color bola
 	        noStroke();
-	        frameRate(50);
+	        frameRate(300);
 	        ellipseMode(RADIUS);
 	        // Establecer la posición inicial de la forma 
 	        xpos = width/2;
@@ -54,12 +55,12 @@ public class Processing1 extends PApplet{
 	        //pala//////////////////////////////////
 	        //dibujar rectangulo
 	        rect(x,y,100,20);
+	        //Direcciones izquierda o derecha
 	        if(keyPressed && key == CODED){
 	        	if(keyCode == LEFT){
 	        		//si todavía no ha llegado a la pared izda, puede ir a la izda
 	        		if(x>0){
 	        			x=x-10;
-		        		
 	        		}	
 	        	}else if(keyCode == RIGHT){
 	        		//si todavía no ha llegado a la pared derecha, puede ir a la derecha
@@ -67,11 +68,10 @@ public class Processing1 extends PApplet{
 	        		x=x+10;
 	        		}
 	        	}
-	        	
 	        }
 	        //bola choque pala
-	        if(xpos+10>=x && (xpos-10<=x+50)){
-	        	ypos=ypos-10;
+	        if((ypos+20>=y)&&(xpos+20>=x && (xpos-20<=x+100))){
+	        	ydireccion *= -1;
 	        }
 	        //bola choque pared
 	        if((x+400)<=0 ){
@@ -79,13 +79,8 @@ public class Processing1 extends PApplet{
 	        	if((x+400)>=width){
 	        		x=x-10;
 	        	}
-	        		      
-	        	
 	        }
 	        //dibujar la bola
-	        ellipse(xpos, ypos, rad, rad);
-	      	       
+	        ellipse(xpos, ypos, rad, rad);       
 	    }//draw
-	    
-	    
 }

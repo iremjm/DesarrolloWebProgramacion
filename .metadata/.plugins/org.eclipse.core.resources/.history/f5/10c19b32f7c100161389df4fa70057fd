@@ -1,0 +1,677 @@
+
+
+import java.awt.*;
+
+/** Título: ArkaLlop
+    Descripción: Prácticas capítulo 11, ejercicio 4
+    Copyright: Copyright (c) 2005
+    Empresa: Casa_Llop
+    @author Albert_Lobo
+    @version 1.0 */
+
+/** Clase que representa la pala de la partida.
+    Contiene un array para los tiros, que no son más que 'sprites'. */
+public class Pala implements Runnable
+{
+  /** Constante que representa la potencia normal de los disparos. */
+  private final static byte DANO_TIRO_NORMAL = 1;
+  /** Constante que representa la potencia doble de los disparos. */
+  private final static byte DANO_TIRO_DOBLE = 2;
+
+  /** Constante que representa la velocidad de los disparos. */
+  private final static byte VELOCIDAD_TIRO = -10;
+
+  /** Constante que representa la anchura normal de la pala. */
+  public final static byte NORMAL = 0;
+  /** Constante que representa la anchura mayor de la pala. */
+  public final static byte ANCHA = 1;
+
+  // A continuación tenemos una serie de 'Image's para cuando la pala y los tiros no están animados.
+  // También hay una seie de arrays de 'Image's para animar la pala, y los disparos.
+  // Y también hay unos arrays de bytes que contienen las secuencias de fotogramas para animar
+  // la pala y los tiros.
+  private Image imgPlNorm;
+  private Image imgPlCreciendo [];
+  private final static byte secuenciaCrece [] = new byte [] {0, 0, 0, 1, 1, 1, 2, 2, 2};
+  private Image imgPlAncha;
+  private Image imgPlArmada;
+  private Image imgPlAnchaArmada;
+  private Image imgTiroAct;
+  private Image imgTiroDuro [];
+  private final static byte secuenciaDuro [] = new byte [] {0, 0, 0, 1, 1, 1};
+  private Image imgTiroInact [];
+  private final static byte secuenciaMuere [] = new byte [] {0, 0, 0, 1, 1, 1};
+
+  // Índices de la secuencia de animación de la pala creciendo, un tiro de alta potencia,
+  // y un disparo destruyéndose.
+  private byte indiceAnimPalaCrece;
+  private byte indiceAnimTiroDuro;
+  private byte indiceAnimTiroMuere;
+
+  // Coordenada X de la pala (la Y es siempre la misma), el vector de movimiento
+  // (igual al componente X del vector ya qu no puede haber Y), y la anchura en píxels.
+  private short coordX;
+  private float vectX;
+  private short ancho;
+
+  // Alarma para programar algunos sucesos.
+  private java.util.Timer alarma;
+
+  // Cuándo reventó el último disparo.
+  private long ultimaMuerteTiro;
+
+  // Si la pala está imantada (atrapa las bolas), si está armada (lleva cañones), si es ancha
+  // (la pala es grande), y si está creciendo (muestra la animación en 'imgPlCreciendo').
+  private boolean imantada;
+  private boolean armada;
+  private boolean ancha;
+  private boolean creciendo;
+
+  // Hilo que gestiona los disparos.
+  private Thread hilo;
+
+  // La potencia de los disparos (una de las constantes de la clase).
+  private byte potenciaTiros;
+
+  // El número de tiros en pantalla, el número de tiros vivos,
+  // y finalmente una tabla para los tiros individuales.
+  private byte numTirosAnim;
+  private byte numTirosReal;
+  private Tiro tiro [];
+
+  // Tanto la pala como los tiros deben tener constancia de los aliens, los ladrillos, los bonos,
+  // y las bolas para saber qué hacer.
+  private Aliens aliens;
+  private Nivel nivel;
+  private Bonos bono;
+  private Bola bolas;
+
+  // La partida actual.
+  private Partida partida;
+
+  /** Constructor.
+      @param nuevaPartida Partida  Esta partida. */
+  public Pala (Partida nuevaPartida)
+  {
+    // Inicializamos las variables.
+    partida = nuevaPartida;
+    indiceAnimPalaCrece = indiceAnimTiroDuro = indiceAnimTiroMuere = 0;
+    inicializaImagenes ();
+    tiro = new Tiro [] {new Tiro (), new Tiro (), new Tiro (), new Tiro (), new Tiro (), new Tiro (),
+                        new Tiro (), new Tiro (), new Tiro (), new Tiro (), new Tiro (), new Tiro (),
+                        new Tiro (), new Tiro (), new Tiro (), new Tiro ()};
+    hilo = new Thread (this);
+    alarma = new java.util.Timer ();
+    ultimaMuerteTiro = System.currentTimeMillis ();
+    variablesPorDefecto ();
+  }
+
+  /** Pone a cero el número de tiros vivos y en pantalla, y centra la pala. */
+  public void limpia ()
+  {
+    numTirosAnim = 0;
+    numTirosReal = 0;
+    coordX = 210;
+    vectX = 0;
+  }
+
+  /** Ajusta todas las variables para preparar la pala para un nuevo intento. */
+  public void variablesPorDefecto ()
+  {
+    limpia ();
+    // Nada de lo que se haya podido conseguir con los bonos.
+    imantada = false;
+    armada = false;
+    ancha = false;
+    creciendo = false;
+    setAnchoPala (NORMAL);
+    potenciaTiros = DANO_TIRO_NORMAL;
+  }
+
+  /** Arranca el hilo que mueve la bola. */
+  public void arrancaHilo ()
+  {
+    if (!hilo.isAlive ())
+      hilo.start ();
+  }
+
+  /** Inicializa las imágenes. */
+  public void inicializaImagenes ()
+  {
+    byte i;
+
+    imgPlNorm = ArkaLlop.getImagen ("pala.gif");
+    imgPlArmada = ArkaLlop.getImagen ("palaArmada.gif");
+    imgPlAncha = ArkaLlop.getImagen ("palaAncha.gif");
+    imgPlAnchaArmada = ArkaLlop.getImagen ("palaAnchaArmada.gif");
+    imgPlCreciendo = new Image [3];
+    for (i = 0; i < imgPlCreciendo.length; i++)
+      imgPlCreciendo [i] = ArkaLlop.getImagen ("palaCreciendo" + i + ".gif");
+    imgTiroAct = ArkaLlop.getImagen ("tiroVivo.gif");
+    imgTiroDuro = new Image [2];
+    for (i = 0; i < imgTiroDuro.length; i++)
+      imgTiroDuro [i] = ArkaLlop.getImagen ("tiroDuro" + i + ".gif");
+    imgTiroInact = new Image [2];
+    for (i = 0; i < imgTiroInact.length; i++)
+      imgTiroInact [i] = ArkaLlop.getImagen ("tiroMuerto" + i + ".gif");
+  }
+
+  /** Cambia el tamaño de la pala: si era ancha, la vuelve normal; y si era normal, la ensancha. */
+  public void cambiaTamano ()
+  {
+    if (ancha)
+      reduce ();
+    else
+      ensancha ();
+  }
+
+  /** Ensancha la pala. */
+  private void ensancha ()
+  {
+    // Ajustamos la coordenada X para que la pala no se incruste en la pared.
+    if (coordX - 20 < 30)
+      coordX = 30;
+    else if (coordX + ancho + 20> 470)
+      coordX = 350;
+    else
+      coordX -= 20;
+    // Ajustamos el tamaño y la variable 'ancha', y ponemos la animación de 'imgPlCreciendo' medio segundo.
+    setAnchoPala (ANCHA);
+    creciendo = true;
+    alarma.schedule
+        (new java.util.TimerTask () { public void run () { creciendo = false; } }, 500);
+  }
+
+  /** Reduce la pala. */
+  private void reduce ()
+  {
+    // Ponemos la pala a crecer, ajustamos el tamaño y la variable 'ancha', y en medio segundo
+    // deja de crecer y se ajusta su coordenada X.
+    creciendo = true;
+    setAnchoPala (NORMAL);
+    alarma.schedule
+        (new java.util.TimerTask () { public void run () { creciendo = false; coordX += 20;} }, 500);
+  }
+
+  /** Carga los cañones en la pala si no los tenía; si los tenía, pone los tiros a doble
+      potencia destructiva; y si ya estaban así, desarma la pala. */
+  public void cambiaDisparos ()
+  {
+    if (armada && potenciaTiros == DANO_TIRO_NORMAL)
+      potenciaTiros = DANO_TIRO_DOBLE;
+    else
+    {
+      armada = !armada;
+      potenciaTiros = DANO_TIRO_NORMAL;
+    }
+  }
+
+  /** Cambia la imantación de la pala: si estaba imantada, deja de estarlo y vice-versa. */
+  public void cambiaImantacion ()
+  {
+    // Despegamos cualquier bola que pudiera haber atrapada.
+    if (imantada)
+      for (byte i = 0; i < bolas.getNumAlmsAnim (); i++)
+        if (bolas.pegadaPala (i))
+          bolas.despegaPala (i);
+
+    imantada = !imantada;
+  }
+
+  /** Hace lo propio para ajustar las variables 'ancho' (anchura en píxels de la pala) y 'ancha'
+      (si la pala es ancha o, por lo contrario, normal) a la nueva anchura de la pala.
+      @param nuevoAnchoPala byte  Define la nueva anchura de la pala -una de las constantes de la clase. */
+  public void setAnchoPala (byte nuevoAnchoPala)
+  {
+    switch (nuevoAnchoPala)
+    {
+      case NORMAL:
+        ancho = (short) imgPlNorm.getWidth (null);
+        ancha = false;
+        break;
+      case ANCHA:
+        ancho = (short) imgPlAncha.getWidth (null);
+        ancha = true;
+    }
+  }
+
+  /** Define los aliens.
+      @param nuevosAliens Aliens  Los aliens. */
+  public void setAliens (Aliens nuevosAliens)
+  {
+    aliens = nuevosAliens;
+  }
+
+  /** Define el nivel.
+      @param nuevoNivel Nivel  El nivel. */
+  public void setNivel (Nivel nuevoNivel)
+  {
+    nivel = nuevoNivel;
+  }
+
+  /** Define los bonos.
+      @param nuevoBono Bonos  Los bonos. */
+  public void setBonos (Bonos nuevosBonos)
+  {
+    bono = nuevosBonos;
+  }
+
+  /** Define las bolas.
+      @param nuevasBolas Bola  Las bolas. */
+  public void setBolas (Bola nuevasBolas)
+  {
+    bolas = nuevasBolas;
+  }
+
+  /** Define la coordenada X de la pala.
+      @param nuevaCoordX short  Nueva coordenada X de la pala. */
+  public void setCoordX (short nuevaCoordX)
+  {
+    coordX = nuevaCoordX;
+  }
+
+  /** Permite conocer la coordenada X de la pala.
+      @return short  Coordenada X de la pala. */
+  public short getCoordX ()
+  {
+    return coordX;
+  }
+
+  /** Permite conocer la coordenada X de un disparo.
+      @param indice byte  Índice del tiro en cuestión.
+      @return float       Coordenada X del tiro. */
+  public float getCoordXTiro (byte indice)
+  {
+    return tiro [indice].coordX;
+  }
+
+  /** Permite conocer la coordenada Y de un disparo.
+      @param indice byte  Índice del tiro en cuestión.
+      @return float       Coordenada Y del tiro. */
+  public float getCoordYTiro (byte indice)
+  {
+    return tiro [indice].coordY;
+  }
+
+  /** Devuelve el vector que representa el movimiento de la pala.
+      @return float  Vector del movimiento de la pala. */
+  public float getVectX ()
+  {
+    return vectX;
+  }
+
+  /** Define el vector de movimiento de la pala.
+      @param nuevoVectX float  Valor del vector de movimiento. */
+  public void setVectX (float nuevoVectX)
+  {
+    vectX = nuevoVectX;
+  }
+
+  /** Permite conocer si un tiro está activo.
+      @param indice byte  Índice del tiro en cuestión.
+      @return boolean     'true' o 'false' según el tiro esté activo o no. */
+  public boolean tiroEstaActivo (byte indice)
+  {
+    return tiro [indice].activo;
+  }
+
+  /** Permite conocer si la pala está armada -lleva cañones y puede disparar.
+      @return boolean  'true' o 'false' según la pala esté armada o no. */
+  public boolean estaArmada ()
+  {
+    return armada;
+  }
+
+  /** Permite conocer si la pala está imantada -puede atrapar bolas.
+      @return boolean  'true' o 'false' según la pala esté imantada o no. */
+  public boolean estaImantada ()
+  {
+    return imantada;
+  }
+
+  /** Define si la pala está imantada o no.
+      @param estaImantada boolean  'true' o 'false' según se quiera la pala imantada o no. */
+  public void setImantada (boolean estaImantada)
+  {
+    imantada = estaImantada;
+  }
+
+  /** Desplaza la pala una cierta distancia en píxels.
+      @param offset short  Distancia que se desplazará la pala -horizontalmente. */
+  public void mueve (short offset)
+  {
+    coordX += offset;
+  }
+
+  /** Permite conocer la anchura en píxels de la pala.
+      @return short  Anchura de la pala. */
+  public short getAnchura ()
+  {
+    return ancho;
+  }
+
+  /** Permite conocer la potencia de los disparos.
+      @return byte  La potencia de los disparos -una de las constantes de la clase. */
+  public byte getPotenciaTiro ()
+  {
+    return potenciaTiros;
+  }
+
+  /** Método propio del interfaz 'Runnable'.
+      Gestiona la interacción de los disparos con su entorno. */
+  public void run ()
+  {
+    // Variable que almacenará los milisegundos entre vuelta y vuelta del bucle.
+    long tmpOffset = System.currentTimeMillis ();
+    while (true)
+    {
+      // Mientras el juego esté pausado, que duerma un poco el hilo.
+      while (partida.getPausa ())
+        try
+        {
+          hilo.sleep (10);
+        } catch (InterruptedException e) {}
+
+      // Bucle que gestiona los tiros en pantalla.
+      for (byte i = 0; i < numTirosAnim; i++)
+      {
+        // Los tiros sólo los tratamos vivos.
+        if (tiro [i].activo)
+        {
+          // Mover el disparo.
+          tiro [i].coordY += VELOCIDAD_TIRO;
+
+          // Comprobar si ha chocado con el techo, con un alien, un bono, o un ladrillo.
+          choqueTecho (i);
+          if (!tiro [i].activo)            // El tiro puede haber petado.
+            continue;
+          choqueAlien (i);
+          if (!tiro [i].activo)            // Otra vez puede haber petado el tiro.
+            continue;
+          choqueBono (i);
+          if (!tiro [i].activo)            // Y de nuevo, el tiro puede haber petado.
+            continue;
+          choqueLadrillo (i);
+        }
+      }
+
+      // Mira si la pala ha cazado algún bono.
+      pillaBono ();
+
+      // Se calcula cuánto ha pasado desde que empezó la vuelta del bucle.
+      // Este valor se descontará del tiempo de descanso del hilo.
+      // El hilo descansaría 50 milisegundos, así que si 'tmpOffset' es demasiado,
+      // lo ajustamos para que el hilo duerma al menos 10 milésimas.
+      tmpOffset = System.currentTimeMillis () - tmpOffset;
+      if (tmpOffset > 40)
+        tmpOffset = 40;
+      try
+      {
+        Thread.sleep (50 - tmpOffset);
+      } catch (InterruptedException e) {}
+      tmpOffset = System.currentTimeMillis ();
+    }
+  }
+
+  /** Comprueba si la pala ha cazado algún bono. De ser así, se absorbe el bono, y sumamos 1000 puntos. */
+  private void pillaBono ()
+  {
+    // Miramos todos los bonos en pantalla.
+    byte numBonos = bono.getNumBonosAnim ();
+    for (byte i = 0; i < numBonos; i++)
+    {
+      // Sólo nos interesan los vivos.
+      if (!bono.estaActivo (i))
+        continue;
+      if ((coordX < bono.getCoordX (i) + 30)
+          && (coordX + ancho > bono.getCoordX (i))
+          && (bono.getCoordY (i) > 500))
+      {
+        // Absorbe bono, destruye bono, suma 1000 puntos.
+        partida.absorbeBono (bono.getTipo (i));
+        bono.mataBono (i);
+        partida.sumaPuntos (1000);
+      }
+    }
+  }
+
+  /** Comprueba si un tiro ha impactado un bono. En ese caso, el tilo se desactiva.
+      @param indice byte  Índice del tiro en cuestión. */
+  private void choqueBono (byte indice)
+  {
+    // Miramos todos los bonos en pantalla.
+    byte numBonos = bono.getNumBonosAnim ();
+    for (byte i = 0; i < numBonos; i++)
+    {
+      // Sólo nos interesan los activos.
+      if (!bono.estaActivo (i))
+        continue;
+      if ((tiro [indice].coordX  + 3 > bono.getCoordX (i))
+          && (tiro [indice].coordX < bono.getCoordX (i) + 30)
+          && (tiro [indice].coordY < bono.getCoordY (i) + 10))
+      {
+        // Impacta el bono, suma unos puntos, y mata el tiro.
+        bono.impactaBono (i, .5F * potenciaTiros);
+        partida.sumaPuntos (200 * potenciaTiros);
+        mataTiro (indice);
+      }
+    }
+  }
+
+  /** Comprueba si un tiro ha dado a un alien. En tal caso, alien y disparo se destruyen.
+      @param indice byte  Índice del disparo en cuestión. */
+  private void choqueAlien (byte indice)
+  {
+    // Máxima distancia entre el centro del alien y el del tiro para que
+    // los clips de sus imágenes se superpongan.
+    byte maxSep = (byte) (3 + aliens.getRad ());
+    // Hay que comprobar todos los aliens en pantalla.
+    byte numAliens = aliens.getNumAliensAnim ();
+    for (byte i = 0; i < numAliens; i++)
+    {
+      // Tratamos sólo a los que están vivos.
+      if (!aliens.estaVivo (i))
+        continue;
+
+      // Primero miramos si el 'clip' del alien y el tiro se superponen.
+      float vectChoqX = (tiro [indice].coordX + 3) - (aliens.getCoordX (i) + aliens.getRad ());
+      float vectChoqY = (tiro [indice].coordY + 3) - (aliens.getCoordY (i) + aliens.getRad ());
+      if (((vectChoqX < maxSep) && (vectChoqX > -maxSep))
+         || ((vectChoqY < maxSep) && (vectChoqY > -maxSep)))
+      {
+        // Miramos si el alien y el tiro están demasiado juntos.
+        float modVectCuad = (float) (Math.pow (vectChoqX, 2) + Math.pow (vectChoqY, 2));
+        if (modVectCuad < Math.pow (maxSep, 2))
+        {
+          // Hay choque: se destruyen tiro y alien, y se suman 500 puntos.
+          aliens.mataAlien (i);
+          mataTiro (indice);
+          partida.sumaPuntos (500);
+        }
+      }
+    }
+  }
+
+  /** Comprueba si un tiro ha dado con el techo del escenario; en ese caso, desactiva el tiro.
+      @param indice byte  Índice del tiro en cuestión. */
+  private void choqueTecho (byte indice)
+  {
+    if (tiro [indice].coordY < 40)
+    {
+      tiro [indice].coordY = 40;
+      mataTiro (indice);
+    }
+  }
+
+  /** Comprueba si un tiro ha dado con algún ladrillo; en ese caso, impacta al ladrillo,
+      y desactiva el tiro.
+      @param indice byte  Índice del tiro en cuestión. */
+  private void choqueLadrillo (byte indice)
+  {
+    float posLadX = (tiro [indice].coordX + 3 - 30) / 40;
+    float posLadY = (tiro [indice].coordY - 100) / 20;
+    if ((posLadX >= 0) && (posLadX < 11) && (posLadY >= 0) && (posLadY < 13)
+        && (nivel.getResistLadrillo ((byte) posLadX, (byte) posLadY) > 0))
+    {
+      // Hay choque: notificamos al ladrillo del impacto, ajustamos la coordenada Y del tiro
+      // para que quede justo debajo del ladrillo, y matamos el tiro.
+      nivel.impactaLadrillo ((byte) posLadX, (byte) posLadY, .5F * potenciaTiros);
+      tiro [indice].coordY = (byte) posLadY * 20 + 120;
+      mataTiro (indice);
+    }
+  }
+
+  /** Permite conocer cuántos disparos hay visibles en pantalla.
+      @return byte  Número de tiros en pantalla. */
+  public byte getNumTirosAnim ()
+  {
+    return numTirosAnim;
+  }
+
+  /** Dispara los cañones de la pala. Sale un tiro de cada torreta. */
+  public synchronized void dispara ()
+  {
+    // Nos aseguramos que el número de tiros visibles no es negativo.
+    if (numTirosAnim < 0)
+      numTirosAnim = 0;
+
+    // No queremos más de 16 tiros en pantalla.
+    if (numTirosAnim < 15)
+    {
+      // Necesitamos saber desde dónde saldrán los disparos.
+      byte offset = ancha ? (byte) 30 : (byte) 10;
+      for (byte i = 0; i < 2; i++)
+      {
+        // Ajusta las variables del nuevo disparo.
+        tiro [numTirosAnim].setCoords (coordX + offset + i * 55, 505);
+        tiro [numTirosAnim].activo = true;
+        // Ajusta las variables contadoras.
+        numTirosAnim++;
+        numTirosReal++;
+        // Coloca el nuevo tiro a la cola de los activos.
+        defragTiroArr ((byte) (numTirosAnim - 1));
+      }
+      // Suena el tiro.
+      partida.suena (Sonido.DISPARO);
+    }
+  }
+
+  /** Mata un tiro -lo desactiva y ajusta su apariencia en pantalla.
+      @param indice byte  Índice del disparo en cuestión. */
+  public void mataTiro (byte indice)
+  {
+    // Desactivar disparo, ponerlo en su mitad del array, ajustar la variable contador,
+    // y no permitir que esta sea negativa.
+    tiro [indice].activo = false;
+    defragTiroArr (indice);
+    numTirosReal--;
+    if (numTirosReal < 0)
+      numTirosReal = 0;
+    // No queremos que un montón de tiros disparen el mismo efecto sonoro casi a la vez
+    // -así que sólo permitiremos que el ruidito suene 10 veces por segundo,
+    // que ya suena a muchas explosiones.
+    if (ultimaMuerteTiro + 100 < System.currentTimeMillis ())
+    {
+      partida.suena (Sonido.IMPACTA_TIRO);
+      ultimaMuerteTiro = System.currentTimeMillis ();
+    }
+    // En un cuarto de segundo ajustaremos la otra variable contador.
+    tiro [numTirosReal].alarma.schedule
+        (new java.util.TimerTask () { public void run () { numTirosAnim--; } }, 250);
+  }
+
+  /** Método que intercambia la posición de dos tiros en la tabla:
+      el indicado con el argumento con el último de los 'vivos' en la tabla.
+      @param indice byte  Índice del tiro que se pondrá en el lugar del último 'vivo'. */
+  private synchronized void defragTiroArr (byte indice)
+  {
+    if (indice != numTirosReal - 1)
+    {
+      Tiro aux = tiro [numTirosReal - 1];
+      tiro [numTirosReal - 1] = tiro [indice];
+      tiro [indice] = aux;
+    }
+  }
+
+  /** Devuelve el fotograma de la pala.
+      @return Image  Imagen de la pala. */
+  public Image getImagenPala ()
+  {
+    // A cada llamada a este método se devuelve la siguiente imagen de la secuencia;
+    // cuando el índice llega al final, vuelve a cero.
+    // Pala creciendo.
+    if (creciendo)
+    {
+      if (indiceAnimPalaCrece == 9)
+        indiceAnimPalaCrece = 0;
+      return imgPlCreciendo [secuenciaCrece [indiceAnimPalaCrece++]];
+    }
+    // Pala armada.
+    if (armada)
+    {
+      if (ancho == 80)
+        return imgPlArmada;
+      else
+        return imgPlAnchaArmada;
+    }
+    // Pala sin armar.
+    if (ancho == 80)
+      return imgPlNorm;
+    else
+      return imgPlAncha;
+  }
+
+  /** Devuelve el fotograma correspondiente al disparo especificado en el argumento.
+      @param indice byte  Índice del disparo en cuestión.
+      @return Image       Imagen del disparo. */
+  public Image getImagenTiro (byte indice)
+  {
+    // A cada llamada a este método se devuelve la siguiente imagen de la secuencia;
+    // cuando el índice llega al final, vuelve a cero.
+    if (tiro [indice].activo)
+    {
+      if (potenciaTiros == DANO_TIRO_NORMAL)
+        return imgTiroAct;
+      else
+      {
+        if (indiceAnimTiroDuro == 6)
+          indiceAnimTiroDuro = 0;
+        return imgTiroDuro [secuenciaDuro [indiceAnimTiroDuro++]];
+      }
+    }
+    else
+    {
+      if (indiceAnimTiroMuere == 6)
+        indiceAnimTiroMuere = 0;
+      return imgTiroInact [secuenciaMuere [indiceAnimTiroMuere++]];
+    }
+  }
+
+  /** Clase interna que contiene la información de un disparo individual. Su constructor, sus funciones y 
+      sus variables son privadas, ya que sólo debe acceder a ellas la misma clase 'Pala'. */
+  private class Tiro
+  {
+    // Coordenadas del disparo, y si está activo.
+    private float coordX;
+    private float coordY;
+    private boolean activo;
+    // 'Alarma' para programar algunos sucesos.
+    private java.util.Timer alarma;
+
+    /** Constructor. */
+    private Tiro ()
+    {
+      coordX = coordY = 0;
+      activo = false;
+      alarma = new java.util.Timer ();
+    }
+    /** Define las coordenadas del tiro.
+        @param nuevaCoordX float  Nueva coordenada X del alien.
+        @param nuevaCoordY float  Nueva coordenada Y del alien. */
+    private void setCoords (float nuevaCoordX, float nuevaCoordY)
+    {
+      coordX = nuevaCoordX;
+      coordY = nuevaCoordY;
+    }
+  }
+}

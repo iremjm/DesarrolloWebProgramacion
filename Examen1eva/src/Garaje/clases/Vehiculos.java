@@ -1,6 +1,6 @@
 package Garaje.clases;
 
-import Ejercicio4.coche.Vehiculo;
+
 
 public class Vehiculos {
 	//aributos
@@ -9,7 +9,7 @@ public class Vehiculos {
 	private boolean socio;
 	//
 	//Metodo constructor
-		public Vehiculo (String matricula){
+		public Vehiculos (String matricula){
 			this.matricula=matricula;
 		}
 	//getter and setter
@@ -19,11 +19,15 @@ public class Vehiculos {
 	public void setMatricula(String matricula) {
 		this.matricula = matricula;
 	}	
-	//metodo boolean matricula
-	 boolean equals(Vehiculo v){
+	
+	@Override
+	public String toString() {
+		return  matricula;
+	}
+	//metodo boolean matricula.Se comprueba si tienen la misma matrícula.
+	 public boolean equals(Vehiculos v){
 		if(this.matricula.equals(v.matricula)){
 			return true;
-		
 		}//if
 		else{
 			return false;
@@ -43,9 +47,5 @@ public class Vehiculos {
 	}
 	
 
-	@Override
-	public String toString() {
-		return  matricula;
-	}
-
+	
 }//class

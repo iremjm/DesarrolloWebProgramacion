@@ -1,0 +1,31 @@
+package EstrucuturasRepetitivas.For;
+
+import java.util.Scanner;
+
+public class SerieMisteriosa {
+
+	public static void main(String[] args) {
+		float num = 0.0f;
+		int cont=0;
+		Scanner tc=new Scanner (System.in);
+		System.out.println("Introduce un número: ");
+		num=tc.nextInt();
+		/*System.out.print(num+" ");*/
+		for(int i=0;i<100;i++){
+			if(num%2==0){
+				num/=2;
+				cont++;
+				
+			}else {
+				num=(num*3)+1;
+				cont++;
+			}
+			System.out.println(num);
+		}
+		System.out.println("Ya llegaste al 1");
+		System.out.println("El contador es "+ cont);
+	}
+
+	
+
+}

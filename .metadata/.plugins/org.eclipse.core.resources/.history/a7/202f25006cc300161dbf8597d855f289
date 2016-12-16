@@ -1,0 +1,23 @@
+import java.util.Scanner;
+
+/*Realizar un programa que pregunte al usuario el momento del día con una letra
+(m-mañana, t-tarde, n-noche), el sexo con otra letra (m-masculino, f-femenino). El
+programa dirá: buenos días, tardes, o noches (según el momento) señor o señora
+según el sexo.*/
+public class Ejerc5 {
+
+	public static void main(String[] args) {
+		String momDia;
+		String sexo=" ";
+		Scanner tc=new Scanner(System.in);
+		System.out.println("¿En que momento del día se encuentra?\n m->mañana \n t->tarde \n n->noche");
+		momDia=tc.nextLine();
+		System.out.println("¿Su sexo es \n masculino->m \n femenino->f");
+		sexo=tc.nextLine();
+		
+	    if(sexo.equals(femenino)){
+	    	
+	    }
+	}
+
+}

@@ -1,0 +1,18 @@
+import java.util.Scanner;
+
+/*2. Realizar un programa que pida al usuario un número y presente los números del 1 al
+número que introdujo el usuario.*/
+public class Ejerc2 {
+
+	public static void main(String[] args) {
+		int num;
+		Scanner tc=new Scanner(System.in);
+		System.out.println("Ingresa un número");
+		num=tc.nextInt();
+		for(int i=1;i<=num;i++){
+			System.out.print(i);
+			System.out.print(" ");
+		}
+	}
+
+}

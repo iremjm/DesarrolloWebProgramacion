@@ -1,0 +1,26 @@
+/*3) Declarar una clase llamada Circulo que tenga como atributo el radio de tipo real y los
+siguientes metidos:
+* Los tres constructores. No se puede tener círculos con radios negativos.
+* Los métodos de modificación y devolución.
+* escribir: Te escribe el radio de círculo.
+* calcularArea y calcularPerimetro: Devuelven el área y el perímetro.
+En el programa principal: Declare dos objetos: rueda y moneda y realice las siguientes
+operaciones:
+a) Inicialice el radio de la rueda con el valor de 10.
+b) Inicialice el radio de la moneda con el valor de 1.
+c) Calcule el área de la rueda.
+d) Calcule el área de la moneda.
+e) Calcule el perímetro de la rueda.
+f) Calcule el perímetro de la moneda.*/package EjerciciosENERO.Perimetro;
+
+public class Programa {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		CalculaPerimetro moneda = new CalculaPerimetro(2);
+		CalculaPerimetro rueda = new CalculaPerimetro(150);
+		System.out.println("-MONEDA: "+moneda);
+		System.out.println("-RUEDA: "+rueda);
+	}
+
+}

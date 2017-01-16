@@ -1,0 +1,19 @@
+package oop_Herencia;
+
+public class Alumno extends Persona {
+	private String nota;
+
+	public String getNota() {
+		return nota;
+	}
+
+	public void setNota(String nota) {
+		this.nota = nota;
+	}
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		//Nombre: xxxx, salario:yyyyyy
+		return super.toString()+"Nota: "+ nota;
+	}
+}

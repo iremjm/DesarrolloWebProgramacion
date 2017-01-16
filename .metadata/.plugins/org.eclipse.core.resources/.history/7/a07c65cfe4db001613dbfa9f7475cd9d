@@ -1,0 +1,18 @@
+package oop_Herencia;
+
+public class Programa {
+
+	public static void main(String[] args) {
+		
+		Profesor profe1=new Profesor();
+		profe1.setNombre("Aitor");
+		profe1.setSalario(2000);
+		System.out.println(profe1);
+		
+		Alumno alumn1=new Alumno();
+		alumn1.setNombre("Luis");
+		alumn1.setNota("LM:7, BBDD:7");
+		System.out.println(alumn1);
+	}
+
+}

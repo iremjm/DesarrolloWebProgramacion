@@ -1,0 +1,38 @@
+package ExamenRecu.Ejercicio6;
+
+import ExamenRecu.Ejercicio4.Oveja;
+
+public class Rebano {
+	int MAX_OVEJAS=100;
+	Oveja[] ovejas;
+	String pastor;
+	String raza;
+	int cantOvejas;
+	
+	public Rebano(){
+		
+	}
+	public void addOveja(){
+		
+	}
+	public void delOveja(){
+		
+	}
+	public void getMejorOveja(){
+		
+	}
+	//Getter and setter
+	public String getPastor() {
+		return pastor;
+	}
+	public void setPastor(String pastor) {
+		this.pastor = pastor;
+	}
+	public String getRaza() {
+		return raza;
+	}
+	public void setRaza(String raza) {
+		this.raza = raza;
+	}
+	
+}

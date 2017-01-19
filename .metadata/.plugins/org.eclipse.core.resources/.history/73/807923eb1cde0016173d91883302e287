@@ -1,0 +1,20 @@
+package ExamenRecu.Ejercicio4;
+
+public class Oveja {
+		String nombre;
+		long crotal;
+		double litros;
+		Oveja padre;
+		Oveja madre;
+		//Constructoras
+		public Oveja(){
+			
+		}
+		public Oveja(double litros){
+			this.litros=litros;
+		}
+		public Oveja(Oveja o){
+			
+		}
+		
+}

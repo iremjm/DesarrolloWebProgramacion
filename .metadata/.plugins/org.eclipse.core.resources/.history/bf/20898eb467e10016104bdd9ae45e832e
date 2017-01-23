@@ -1,0 +1,23 @@
+package Banco;
+
+public class CuentaCredito extends Cuenta {
+
+	public CuentaCredito(String titular, double saldo) {
+		super(titular, saldo);
+		// TODO Auto-generated constructor stub
+	
+	}
+
+	@Override
+	public void reintegro(double cant) {
+		final double MAX_NEGATIVO=-400;
+		if(saldo >= cant  ){
+		saldo=saldo-cant;
+		
+		}else if(saldo  ){
+			saldo=saldo
+		}
+		
+	}
+
+}

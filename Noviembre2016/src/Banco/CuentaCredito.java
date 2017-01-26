@@ -8,18 +8,23 @@ public class CuentaCredito extends Cuenta {
 	
 	}
 	private static final double MAX_NEGATIVO=-400;
-	private static final double INTERES =0.01;
+	private static  double interes;
+	private static final double INT_NEG =0.01;
 	private  double saldoNegativo;
 	@Override
 	public void reintegro(double cant) {
-	
-	if (saldo >= cant){
-		if(saldo=saldo-cant){
-			
+		if (saldo >= cant){
+			saldo=saldo-cant;
 		}else{
-			
+			saldoNegativo=saldo-cant;
+			interes=saldoNegativo*INT_NEG;
+			if(MAX_NEGATIVO<=saldoNegativo+interes){
+				saldo=saldoNegativo+interes;
+				System.out.println("Su cuenta está en negativo");
+			}else{
+				System.out.print("Opereación rechazada por la entidad.");
+			}
 		}
-	}
 		
 	}
 

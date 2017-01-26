@@ -1,0 +1,6 @@
+package Interfaces;
+
+public interface Alquilable {
+	public int precio=0;
+	
+}

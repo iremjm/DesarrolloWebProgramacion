@@ -1,0 +1,8 @@
+package oop_Herencia;
+
+public interface Alquilable {//un interface es abstracto, no se puede hacer un new Alquilable.
+	public int precio=0;//los trata como constantes
+	public abstract double getPrecioHora();
+	public abstract void setPrecioHora(double precio);
+	public abstract void boolean isLibre(Date);
+}

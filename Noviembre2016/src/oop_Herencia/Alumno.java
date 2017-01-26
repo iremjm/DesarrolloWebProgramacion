@@ -6,9 +6,13 @@ public class Alumno extends Persona {
 		super(nombre);
 		// TODO Auto-generated constructor stub
 	}
-	private String nota;
+	public Alumno(String nombre, double nota){
+		super(nombre);
+		this.nota=nota;
+	}
+	private double nota;
 
-	public String getNota() {
+	public double getNota() {
 		return nota;
 	}
 

@@ -1,6 +1,6 @@
 package oop_Herencia;
 
-public class Alumno extends Persona {
+public class Alumno extends Persona implements Comparable{
 	
 	public Alumno(String nombre) {
 		super(nombre);
@@ -16,7 +16,7 @@ public class Alumno extends Persona {
 		return nota;
 	}
 
-	public void setNota(String nota) {
+	public void setNota(double nota) {
 		this.nota = nota;
 	}
 	@Override
@@ -24,4 +24,10 @@ public class Alumno extends Persona {
 		//Nombre:xxxxx, Nota:yyyyy
 		return super.toString() + ", Nota: "+ nota;
 	}
+	@Override
+	public int compareTo(Object obj) {
+			Alumno alu=(Alumno)obj;
+			return((int)(this.nota*100-alu.nota*100));
+	}
+
 }

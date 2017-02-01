@@ -30,10 +30,6 @@ public class Profesor extends Persona implements Alquilable{
 		if(precio>=Alquilable.MIN_PRECIO && precio<= MAX_PRECIO)
 		this.precioHora=precio;
 	}
-	@Override
-	public boolean isLibre() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+
 }
 

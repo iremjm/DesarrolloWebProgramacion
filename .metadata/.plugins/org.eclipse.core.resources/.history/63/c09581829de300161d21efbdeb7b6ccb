@@ -1,8 +1,0 @@
-package Interfaces;
-
-public interface Alquilable {
-	public int precio=0;//los trata como constantes
-	public double getPrecioHora();
-	
-	
-}

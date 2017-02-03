@@ -35,14 +35,7 @@ public int compareTo(Object obj) {
 @Override
 public boolean equals(Object obj) {
 	// si tiene el mismo nombre y nota es el mismo alumno
-	// si es un alumno
-	if(obj instanceof Alumno){
-		Alumno al=(Alumno) obj;//transformamos el objeto a la clase que pertenece
-		if(nota==al.nota && nombre.toUpperCase(). equals(al.nombre.toUpperCase())){
-			return true;
-		}
-	}
-
-	return false;
+	if()
+	return super.equals(obj);
 }
 }

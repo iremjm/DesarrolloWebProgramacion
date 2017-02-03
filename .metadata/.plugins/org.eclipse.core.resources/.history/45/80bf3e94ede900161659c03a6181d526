@@ -38,7 +38,7 @@ public boolean equals(Object obj) {
 	// si es un alumno
 	if(obj instanceof Alumno){
 		Alumno al=(Alumno) obj;//transformamos el objeto a la clase que pertenece
-		if(nota==al.nota && nombre.toUpperCase(). equals(al.nombre.toUpperCase())){
+		if(nota==al.nota && nombre.equals(al.nombre)){
 			return true;
 		}
 	}

@@ -15,10 +15,6 @@ public class ProgramaGestor {
 	public static void ejecutarOpcion(opc){
 		switch(opc){
 		case 1://añadir alumno
-			//pedir nombre
-			//pedir nota
-			//crear objeto alumno con los datos
-			//añadir alumno
 			break;
 		case 2://modificar alumno
 			break;

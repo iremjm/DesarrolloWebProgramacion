@@ -9,7 +9,7 @@ public class ProgramaGestor {
 		//añadir alumnos
 		ga.addAlumnos(new Alumno("Juan",5));
 		ga.addAlumnos(new Alumno("Erik",7));
-		System.out.println("Totak alumnos: "+ ga.getSize());
+		System.out.println("Total alumnos: "+ ga.getSize());
 	}
 
 }

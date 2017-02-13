@@ -132,16 +132,13 @@ public class GestorAlumnos {
 	//Eliminar alumno
 	public void delAlumno(int index){//elimina el objeto que se encuentra en el indice
 		lstAlumnos.remove(index);
-		guardarListado();
 	}
 	public void delAlumno(Alumno al){
 		lstAlumnos.remove(al);
-		guardarListado();
 	}
 	//modificar alumno
 	public void modAlumno(int index, Alumno al){
 		lstAlumnos.set(index, al);
-		guardarListado();
 	}
 	//Contar cuantos alumnos hay
 	public int getCantidadAlumnos(){
@@ -149,7 +146,7 @@ public class GestorAlumnos {
 		return lstAlumnos.size();
 	}
 	//Buscar un alumno
-	public Alumno getAlumno(String nombre){
+	Alumno getAlumno(String nombre){
 		  for(int i = 0 ; i < lstAlumnos.size();i++) {
 			  Alumno a=lstAlumnos.get(i);
 			  	if(a.getNombre().toUpperCase().equals(nombre.toUpperCase())){
@@ -159,7 +156,7 @@ public class GestorAlumnos {
 		  return null;
 	}
 	
-	public Alumno getAlumno(int index){
+	Alumno getAlumno(int index){
 		return lstAlumnos.get(index);
 	}
 	

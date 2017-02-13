@@ -40,17 +40,8 @@ public class ProgramaGestor {
 			BorraAlumno();
 			break;
 		case 4://buscar alumno
-			//pedir nombre al asuario
-			System.out.println("Ingresa el nombre:");
-			String nombre=sc.nextLine();
-			//pedir al gestor el alumno
-			Alumno al=ga.getAlumno(nombre);
-			//muestra sus datos por consola
-			if(al==null){
-				System.out.println("Alumno no encontrado!!");
-			}else{
-			System.out.println(al);
-			}
+			//Busca alumno
+			searchAlumno();
 			break;
 		case 5://imprime alumno
 			PrintAlumno();
@@ -104,5 +95,18 @@ public class ProgramaGestor {
 		// TODO Auto-generated method stub
 		
 		ga.leerListado();
+	}
+	private static void searchAlumno(){
+		//pedir nombre al asuario
+		System.out.println("Ingresa el nombre:");
+		String nombre=sc.nextLine();
+		//pedir al gestor el alumno
+		Alumno al=ga.getAlumno(nombre);
+		//muestra sus datos por consola
+		if(al==null){
+			System.out.println("Alumno no encontrado!!");
+		}else{
+		System.out.println(al);
+		}
 	}
 }

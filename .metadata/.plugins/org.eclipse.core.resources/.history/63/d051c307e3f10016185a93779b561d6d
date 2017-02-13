@@ -1,6 +1,7 @@
 package gui;
 import java.io.FileInputStream;
 import java.util.Scanner;
+
 import model.Alumno;
 import model.GestorAlumnos;
 public class ProgramaGestor {
@@ -40,17 +41,6 @@ public class ProgramaGestor {
 			BorraAlumno();
 			break;
 		case 4://buscar alumno
-			//pedir nombre al asuario
-			System.out.println("Ingresa el nombre:");
-			String nombre=sc.nextLine();
-			//pedir al gestor el alumno
-			Alumno al=ga.getAlumno(nombre);
-			//muestra sus datos por consola
-			if(al==null){
-				System.out.println("Alumno no encontrado!!");
-			}else{
-			System.out.println(al);
-			}
 			break;
 		case 5://imprime alumno
 			PrintAlumno();
@@ -58,8 +48,7 @@ public class ProgramaGestor {
 		case 6://salir
 			break;
 		default://error
-			System.out.println("Ingrese un valor del menu");
-		}//switch
+		}
 	}
 	private static void anadeAlumno() {
 		// TODO Auto-generated method stub

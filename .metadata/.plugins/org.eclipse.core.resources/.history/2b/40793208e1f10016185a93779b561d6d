@@ -1,6 +1,7 @@
 package gui;
 import java.io.FileInputStream;
 import java.util.Scanner;
+
 import model.Alumno;
 import model.GestorAlumnos;
 public class ProgramaGestor {
@@ -17,6 +18,7 @@ public class ProgramaGestor {
 			//ejecutar opcion
 			ejecutarOpcion(opc);
 		}while(opc!=6);
+		
 	}
 	public static void mostrarMenu(){
 		System.out.println("***** MENÚ DE ALUMNOS *****");
@@ -28,6 +30,7 @@ public class ProgramaGestor {
 		System.out.println("6.- Salir");
 		System.out.print("Opción:");
 	}
+
 	public static void ejecutarOpcion(int opc){
 		switch(opc){
 		case 1://añadir alumno
@@ -40,17 +43,6 @@ public class ProgramaGestor {
 			BorraAlumno();
 			break;
 		case 4://buscar alumno
-			//pedir nombre al asuario
-			System.out.println("Ingresa el nombre:");
-			String nombre=sc.nextLine();
-			//pedir al gestor el alumno
-			Alumno al=ga.getAlumno(nombre);
-			//muestra sus datos por consola
-			if(al==null){
-				System.out.println("Alumno no encontrado!!");
-			}else{
-			System.out.println(al);
-			}
 			break;
 		case 5://imprime alumno
 			PrintAlumno();
@@ -58,9 +50,9 @@ public class ProgramaGestor {
 		case 6://salir
 			break;
 		default://error
-			System.out.println("Ingrese un valor del menu");
-		}//switch
+		}
 	}
+
 	private static void anadeAlumno() {
 		// TODO Auto-generated method stub
 		//pedir datos  y crear alumno
@@ -93,6 +85,7 @@ public class ProgramaGestor {
 		ga.delAlumno(index);
 		System.out.println("El alumno "+ index + " ha sido eliminado.");
 	}
+	
 	private static int Pideindice() {
 		// TODO Auto-generated method stub
 		System.out.println("Indice: ");

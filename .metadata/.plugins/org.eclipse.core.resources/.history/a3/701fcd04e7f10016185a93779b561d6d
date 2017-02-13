@@ -46,11 +46,7 @@ public class ProgramaGestor {
 			//pedir al gestor el alumno
 			Alumno al=ga.getAlumno(nombre);
 			//muestra sus datos por consola
-			if(al==null){
-				System.out.println("Alumno no encontrado!!");
-			}else{
 			System.out.println(al);
-			}
 			break;
 		case 5://imprime alumno
 			PrintAlumno();
@@ -59,7 +55,8 @@ public class ProgramaGestor {
 			break;
 		default://error
 			System.out.println("Ingrese un valor del menu");
-		}//switch
+		}
+		System.out.println("Ha salido del programa");
 	}
 	private static void anadeAlumno() {
 		// TODO Auto-generated method stub

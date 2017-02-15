@@ -1,0 +1,36 @@
+package gui;
+import java.util.Scanner;
+
+
+import model.GestorTarea;
+import model.Tarea;
+public class Programa {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		GestorTarea gt=new GestorTarea();
+		Scanner sc=new Scanner(System.in);
+		int opc=0;
+		do{
+			mostrarMenu();
+			//leer opción
+			opc=sc.nextInt();
+			sc.nextLine();
+			//ejecutar opcion
+			
+		}while(opc!=6);
+	}
+	public static void mostrarMenu(){
+		System.out.println("***** MENÚ Tareas *****");
+		System.out.println("1.- Añadir Tarea");
+		System.out.println("2.- Finalizar Tarea");
+		System.out.println("3.- Listar Todas");
+		System.out.println("4.- Listar Realizadas");
+		System.out.println("5.- No Realizadas");
+		System.out.println("6.- Salir");
+		System.out.print("Opción:");
+	}
+	
+	}
+
+

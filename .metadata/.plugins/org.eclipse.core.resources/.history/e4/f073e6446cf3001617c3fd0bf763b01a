@@ -1,0 +1,8 @@
+package ToDo.model;
+
+public class GestorTarea {
+	void addTarea(tares t){
+		
+	}
+	void 
+}

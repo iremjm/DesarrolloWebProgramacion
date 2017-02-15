@@ -1,0 +1,19 @@
+package ToDo.model;
+
+import java.util.ArrayList;
+
+import model.Alumno;
+
+
+	public class GestorTarea {
+		private static final String FICHERO_LISTADO=".\\listarTareas.ser";//Cargar los datos del fichero
+		private ArrayList<Tarea> lstAlumnos=new ArrayList<Tarea>();//el arraylist no tiene tamaño fijo,se modifica internamente.
+		public GestorTarea(){
+			leerListado();
+			
+		
+}
+		private void leerListado() {
+			// TODO Auto-generated method stub
+			
+		}

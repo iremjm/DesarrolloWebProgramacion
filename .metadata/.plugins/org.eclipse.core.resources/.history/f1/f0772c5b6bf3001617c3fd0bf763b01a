@@ -1,0 +1,8 @@
+package ToDo.model;
+
+public class Tarea {
+String titulo;
+boolean hecho;
+
+
+}

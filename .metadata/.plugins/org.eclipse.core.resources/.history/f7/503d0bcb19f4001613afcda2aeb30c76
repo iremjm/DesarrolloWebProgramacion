@@ -1,0 +1,65 @@
+package gui;
+import java.util.Scanner;
+import model.GestorTarea;
+import model.Tarea;
+public class Programa {
+	private static final int OPCION_SALIDA = 6;
+	private static GestorTarea gt=new GestorTarea();
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int opc;
+		do{
+			//Mostrar menu
+			mostrarMenu();
+			//leer la opción selecionada
+			opc=leerOpcion();
+			//ejecutar la opción seleccionada
+			
+		}while(opc!=OPCION_SALIDA);
+	}//main
+	
+		private static void mostrarMenu(){
+			System.out.println("***** MENÚ TAREAS *****");
+			System.out.println("1.- Añadir Tarea");
+			System.out.println("2.- Finalizar Tarea");
+			System.out.println("3.- Listar Todas");
+			System.out.println("4.- Listar Realizadas");
+			System.out.println("5.- No Realizadas");
+			System.out.println("6.- Salir");
+			System.out.print("Opción: ");
+		}
+		private static void leerOpcion(){
+			Scanner sc=new Scanner(System.in);
+			int opc;
+			opc=sc.nextInt();
+			sc.nextLine();
+		}//leerOpcion
+		public static void ejecutarOpcion(int opc){
+			switch(opc){
+			case 1://añadir Tarea
+			
+				break;
+			case 2://Finnalizar Tarea
+				
+				break;
+			case 3://Listar tareas
+				
+				break;
+			case 4://Listar Realizadas
+				
+				break;
+			case 5://Listar no Realizadas
+				
+				break;
+			case 6://salir
+				
+				break;
+			default://error
+				System.out.println("Ingrese un valor del menu");
+			}//switch
+		}//ejecutaopcion
+	
+	
+	}//programa
+
+

@@ -1,24 +1,22 @@
 package gui;
+import java.util.InputMismatchException;
 import java.util.Scanner;
-
-import model.Alumno;
 import model.GestorTarea;
 import model.Tarea;
 public class Programa {
+	private static Scanner sc= new Scanner(System.in);
 	private static final int OPCION_SALIDA = 6;
 	private static GestorTarea gt=new GestorTarea();
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
-		Scanner sc=new Scanner(System.in);
-		int opc;
+		int opc=0;
 		do{
+			//Mostrar menu
 			mostrarMenu();
 			//leer la opción selecionada
-			opc=sc.nextInt();
-			sc.nextLine();
+			opc=leerOpcion();
 			//ejecutar la opción seleccionada
-			
+			ejecutarOpcion(opc);
 		}while(opc!=OPCION_SALIDA);
 	}//main
 	
@@ -26,16 +24,41 @@ public class Programa {
 			System.out.println("***** MENÚ TAREAS *****");
 			System.out.println("1.- Añadir Tarea");
 			System.out.println("2.- Finalizar Tarea");
-			System.out.println("3.- Listar Todas");
-			System.out.println("4.- Listar Realizadas");
-			System.out.println("5.- No Realizadas");
+			System.out.println("3.- Listar todas");
+			System.out.println("4.- Listar realizadas");
+			System.out.println("5.- Listar no realizadas");
 			System.out.println("6.- Salir");
 			System.out.print("Opción: ");
 		}
-		public static void ejecutarOpcion(int opc){
+		private static int leerOpcion(){
+			int opc;
+			try{//POSIBLE ERROR... Si no se insterta un número
+				opc=sc.nextInt();
+				sc.nextLine();
+				return opc;
+			}catch (InputMismatchException e){
+				System.out.println("La opción ha de ser un número !!");
+				
+				//para saltar lo escrito anteiormente
+				sc.nextLine();
+				//espera a que el usuario pulse intro
+				pulsaintro();
+				return 0;//vuleve a mostrar el menu
+			}//catch
+		
+		}//leerOpcion
+		private static void pulsaintro() {
+			System.out.println("Pulse intro para continuar...");
+			//esperar que pulse intro
+			sc.nextLine();	
+		}
+
+		private static void ejecutarOpcion(int opc){
 			switch(opc){
+			case 0://es cuando el usuario ha introducido algo no númerico en opc.
+				break;
 			case 1://añadir Tarea
-			
+			AnnadirTarea();
 				break;
 			case 2://Finnalizar Tarea
 				
@@ -50,11 +73,23 @@ public class Programa {
 				
 				break;
 			case 6://salir
-				
+				System.out.println("Ha salido del programa.");
 				break;
 			default://error
-				System.out.println("Ingrese un valor del menu");
+				System.out.println("La opción tiene que ser entre 0 y "+ OPCION_SALIDA);
 			}//switch
+		}//ejecutaopcion
+		private static void AnnadirTarea() {
+			//pedir nombre tarea			
+			System.out.println("Ingresa el nombre de la tarea.");
+			String nomTarea=sc.nextLine();
+			//crear objeto tarea
+			Tarea t1=new Tarea(nomTarea);
+			gt.addTarea(t1);
+			
+			//crear tarea
+			//pedir al gestor de tareas que añada esta tarea
+			
 		}
 	
 	

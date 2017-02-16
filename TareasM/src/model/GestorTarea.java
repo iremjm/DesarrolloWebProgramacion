@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 		public static final int LISTAR_TODAS=0; 
 		public static final int LISTAR_REALIZADAS=1; 
 		public static final int LISTAR_NO_REALIZADAS=2;
-		
+	
 		private static final String FICHERO_LISTADO=".\\listarTareas.ser";//Cargar los datos del fichero
 		private ArrayList<Tarea> lstTareas=new ArrayList<Tarea>();//el arraylist no tiene tamaño fijo,se modifica internamente.
 		
@@ -22,8 +23,6 @@ import java.util.ArrayList;
 			leerListado();
 		}
 		private void leerListado() {
-
-			// TODO Auto-generated method stub
 			//método que lee del fichero los datos de los alumnos
 			FileInputStream fin = null;
 			ObjectInputStream ois = null;
@@ -97,7 +96,7 @@ import java.util.ArrayList;
 			}
 		public void addTarea(Tarea t){
 			//añadimos la tarea.
-			lstTareas.add(t);
+			System.out.println("Nombre tarea: ");
 		}
 		public void finTarea(String titulo){
 			Tarea tarea;
@@ -117,6 +116,8 @@ import java.util.ArrayList;
 				  }else{
 					  t.isHecho();
 				  }
+			  }
+			return 0;	  
 		}
 		public Tarea[] getTareas(int tipo){
 			if(tipo==LISTAR_TODAS){

@@ -5,7 +5,7 @@ import model.GestorTarea;
 import model.Tarea;
 public class Programa {
 	private static Scanner sc= new Scanner(System.in);
-	private static final int OPCION_SALIDA = 6;
+	private static final int OPCION_SALIDA = 8;
 	private static GestorTarea gt=new GestorTarea();
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -27,7 +27,9 @@ public class Programa {
 			System.out.println("3.- Listar todas");
 			System.out.println("4.- Listar realizadas");
 			System.out.println("5.- Listar no realizadas");
-			System.out.println("6.- Salir");
+			System.out.println("6.- Leer tareas");
+			System.out.println("7.- Guardar Tareas");
+			System.out.println("8.- Salir");
 			System.out.print("Opción: ");
 		}
 		private static int leerOpcion(){
@@ -61,38 +63,59 @@ public class Programa {
 			AnnadirTarea();
 				break;
 			case 2://Finnalizar Tarea
-				
+				finTarea();
 				break;
 			case 3://Listar tareas
-				
+				PedirAlGestorTareas(GestorTarea.LISTAR_TODAS);
 				break;
 			case 4://Listar Realizadas
-				
+				PedirAlGestorTareas(GestorTarea.LISTAR_REALIZADAS);
 				break;
 			case 5://Listar no Realizadas
-				
+				PedirAlGestorTareas(GestorTarea.LISTAR_NO_REALIZADAS);
 				break;
-			case 6://salir
+			case 6://
+				gt.leerTareas();
+				break;
+			case 7://
+				gt.guardarTareas();
+				break;
+			case 8://salir
 				System.out.println("Ha salido del programa.");
 				break;
 			default://error
 				System.out.println("La opción tiene que ser entre 0 y "+ OPCION_SALIDA);
 			}//switch
+		
 		}//ejecutaopcion
-		private static void AnnadirTarea() {
+			private static void AnnadirTarea() {
 			//pedir nombre tarea			
-			System.out.println("Ingresa el nombre de la tarea.");
-			String nomTarea=sc.nextLine();
-			//crear objeto tarea
-			Tarea t1=new Tarea(nomTarea);
+			//crear objeto tarea. Se pide mediante pedirTitulo()
+			Tarea t1=new Tarea(pedirTitulo());
 			gt.addTarea(t1);
-			
-			//crear tarea
+			//crear tarea. 
 			//pedir al gestor de tareas que añada esta tarea
-			
 		}
-	
-	
+		private static void finTarea() {
+			//pedir datos de la tarea al usuario.Se pide mediante pedirTitulo()
+			//pedir al gestor que finalice la tarea.
+			gt.finTarea(pedirTitulo());
+		}//finTarea()
+		private static String pedirTitulo(){
+		//pedir datos de la tarea al usuario.
+		System.out.println("Ingresa el título de la tarea.");
+		String titulo=sc.nextLine();
+		return titulo;
+		}
+		private static void PedirAlGestorTareas(int tipo){
+			//Pedir al gestor todas las tareas
+			Tarea[] lstTareas= gt.getTareas(tipo);
+			//Recorrer el array de tareas e imprimirlas.
+			for(int i=0; i<lstTareas.length;i++){
+				
+				System.out.println("Tarea: "+ lstTareas[i]);
+			}
+		}
 	}//programa
 
 

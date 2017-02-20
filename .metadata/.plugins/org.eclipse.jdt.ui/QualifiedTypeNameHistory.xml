@@ -26,5 +26,6 @@
 <fullyQualifiedTypeName name="model.GestorAlumnos"/>
 <fullyQualifiedTypeName name="model.Alumno"/>
 <fullyQualifiedTypeName name="model.Tarea"/>
+<fullyQualifiedTypeName name="java.util.InputMismatchException"/>
 <fullyQualifiedTypeName name="java.util.Scanner"/>
 </qualifiedTypeNameHistroy>

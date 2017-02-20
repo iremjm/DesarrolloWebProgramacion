@@ -1,9 +1,9 @@
 package model;
 
 public class Tarea {
-String titulo;
-boolean hecho;
-String hecha;
+private String titulo;
+private boolean hecho;
+
 	public Tarea(String titulo){
 		this.titulo=titulo;
 	}

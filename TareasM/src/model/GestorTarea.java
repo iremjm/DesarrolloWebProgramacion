@@ -1,7 +1,11 @@
 package model;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -16,87 +20,85 @@ import java.util.Scanner;
 		public static final int LISTAR_REALIZADAS=1; 
 		public static final int LISTAR_NO_REALIZADAS=2;
 	
-		private static final String FICHERO_LISTADO=".\\listarTareas.ser";//Cargar los datos del fichero
 		private ArrayList<Tarea> lstTareas=new ArrayList<Tarea>();//el arraylist no tiene tamaño fijo,se modifica internamente.
-		
-		public GestorTarea(){
-			leerListado();
-		}
-		private void leerListado() {
-			//método que lee del fichero los datos de los alumnos
-			FileInputStream fin = null;
-			ObjectInputStream ois = null;
+		private static final String FILENAME = "filename.txt";
+		public void leerTareas() {
+			BufferedReader br = null;
+			FileReader fr = null;
 
 			try {
-				//puede que no exista el fichero
-				fin = new FileInputStream(FICHERO_LISTADO);
-				ois = new ObjectInputStream(fin);
-				lstTareas = (ArrayList<Tarea>) ois.readObject();
 
-			}catch (FileNotFoundException fnfe){
-				//no eiste el fichero,porque no se han
-				//introducido datos...
-			}
-			catch (Exception ex) {
-				ex.printStackTrace();
+				fr = new FileReader(FILENAME);
+				br = new BufferedReader(fr);
+
+				String sCurrentLine;
+
+				br = new BufferedReader(new FileReader(FILENAME));
+
+				while ((sCurrentLine = br.readLine()) != null) {
+					System.out.println(sCurrentLine);
+				}
+
+			} catch (IOException e) {
+
+				e.printStackTrace();
+
 			} finally {
 
-				if (fin != null) {
-					try {
-						fin.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
+				try {
 
-				if (ois != null) {
-					try {
-						ois.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+					if (br != null)
+						br.close();
+
+					if (fr != null)
+						fr.close();
+
+				} catch (IOException ex) {
+
+					ex.printStackTrace();
+
 				}
 
 			}
-		}	
-		public void guardarListado(){
-			//método que guarda en un fichero los datos de los alumnos
-				FileOutputStream fout=null;
-				ObjectOutputStream oos=null;
-				try {
-					fout = new FileOutputStream(FICHERO_LISTADO);
-					oos = new ObjectOutputStream(fout);
-					oos.writeObject(lstTareas);
-					
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					System.out.println("Fichero no encontrado!!");
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					
-					System.out.println("Error de escritura");
-				}		
-				finally {
 
-					if (fout != null) {
-						try {
-							fout.close();
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-					}
-					if (oos != null) {
-						try {
-							oos.close();
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-					}
+		}	
+		public void guardarTareas(){
+			BufferedWriter bw = null;
+			FileWriter fw = null;
+
+			try {
+
+				fw = new FileWriter(FILENAME);
+				bw = new BufferedWriter(fw);
+				for(Tarea t:lstTareas){
+					bw.write(t.toString()+", " + t.isHecho()+"\r\n");
 				}
+				
+			} catch (IOException e) {
+
+				e.printStackTrace();
+
+			} finally {
+
+				try {
+
+					if (bw != null)
+						bw.close();
+
+					if (fw != null)
+						fw.close();
+
+				} catch (IOException ex) {
+
+					ex.printStackTrace();
+
+				}
+
+			}
 			}
 		public void addTarea(Tarea t){
 			//añadimos la tarea.
-			System.out.println("Nombre tarea: ");
+			lstTareas.add(t);
 		}
 		public void finTarea(String titulo){
 			Tarea tarea;
@@ -107,7 +109,6 @@ import java.util.Scanner;
 				  }
 			  }
 		}
-
 		public int getTareasSinHacer(){
 			  for(int i = 0 ; i < lstTareas.size();i++){
 				  Tarea t= lstTareas.get(i);
@@ -119,6 +120,7 @@ import java.util.Scanner;
 			  }
 			return 0;	  
 		}
+		//
 		public Tarea[] getTareas(int tipo){
 			if(tipo==LISTAR_TODAS){
 				return lstTareas.toArray(new Tarea[0]);
@@ -126,7 +128,7 @@ import java.util.Scanner;
 				ArrayList<Tarea> lstAux=new ArrayList<Tarea>();
 				for (Tarea t:lstTareas){
 					if((tipo==LISTAR_REALIZADAS && t.isHecho()) ||
-					(tipo==LISTAR_REALIZADAS && !t.isHecho())){
+					(tipo==LISTAR_NO_REALIZADAS && !t.isHecho())){
 						lstAux.add(t);
 					}
 				}

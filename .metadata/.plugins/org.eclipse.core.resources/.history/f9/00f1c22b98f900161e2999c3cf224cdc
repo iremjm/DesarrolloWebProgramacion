@@ -1,0 +1,8 @@
+package model;
+
+public class Entrena {
+	private double kms;
+	private  int mins;
+	private String lugar;
+	private int mYear, mMonth, mDay;
+}

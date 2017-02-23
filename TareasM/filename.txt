@@ -1,2 +1,7 @@
-rakara, false
-dos, false
+hacer lo no hecho, false
+hacer lo no hecho, false
+Desayunar, false
+hacer lo no hecho, false
+hacer lo no hecho, false
+hacer lo no hecho, false
+hacer lo no hecho, false

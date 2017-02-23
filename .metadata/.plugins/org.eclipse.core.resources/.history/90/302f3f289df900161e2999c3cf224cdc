@@ -1,0 +1,62 @@
+package model;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+
+public class GestorEntrena {
+	private ArrayList<Entrena> lstEntrena=new ArrayList<Entrena>();//el arraylist no tiene tamaño fijo,se modifica internamente.
+	private static final String FICHERO_LISTADO=".\\listadoEntrena.ser";//Cargar los datos del fichero
+	
+	private void leerDatos(){
+		
+	}
+	private void guardarDatos(){
+		//método que guarda en un fichero los datos de los alumnos
+				FileOutputStream fout=null;
+				ObjectOutputStream oos=null;
+				try {
+					fout = new FileOutputStream(FICHERO_LISTADO);
+					oos = new ObjectOutputStream(fout);
+					oos.writeObject(lstEntrena);
+					
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					System.out.println("Fichero no encontrado!!");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					
+					System.out.println("Error de escritura");
+				}		
+				finally {
+
+					if (fout != null) {
+						try {
+							fout.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+					if (oos != null) {
+						try {
+							oos.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+	}
+	public void addEntrena(Entrena ent){
+		//Añadimos entrena
+		lstEntrena.add(ent);
+	}
+	public void modEntrena(int index, Entrena ent){
+		lstEntrena.set(index, ent);
+		guardarDatos();
+	}
+}
+
+

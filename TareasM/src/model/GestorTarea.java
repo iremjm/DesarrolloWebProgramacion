@@ -27,18 +27,25 @@ import java.util.Scanner;
 			FileReader fr = null;
 
 			try {
-
 				fr = new FileReader(FILENAME);
 				br = new BufferedReader(fr);
-
-				String sCurrentLine;
-
-				br = new BufferedReader(new FileReader(FILENAME));
-
-				while ((sCurrentLine = br.readLine()) != null) {
-					System.out.println(sCurrentLine);
+				String linea;
+				//Es lo mismo que las dos líneas de arriba.
+				//br = new BufferedReader(new FileReader(FILENAME));
+				while ((linea = br.readLine()) != null) {
+					System.out.println(linea);
+					//trozear lainformación
+					String[] datos= linea.split(","); 
+					String titulo= datos[0];
+					boolean hecho=Boolean.parseBoolean(datos[1].trim());
+					//crear una tarea con la información
+					Tarea t=new Tarea(titulo);
+					if(hecho){
+						t.finalizar();
+					}
+					//añadir la tarea a la lista de tareas
+					this.addTarea(t);
 				}
-
 			} catch (IOException e) {
 
 				e.printStackTrace();

@@ -1,9 +1,0 @@
-package ToDo.model;
-
-public class Tarea {
-String titulo;
-boolean hecho;
-	public Tarea(String titulo){
-		this.titulo=titulo;
-	}
-}

@@ -7,7 +7,6 @@ private boolean hecho;
 	public Tarea(String titulo){
 		this.titulo=titulo;
 	}
-
 	public void finalizar(){
 		hecho=true;
 	}

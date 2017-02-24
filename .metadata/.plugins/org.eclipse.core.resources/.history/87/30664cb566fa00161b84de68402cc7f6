@@ -40,6 +40,7 @@ public class Programa {
 			return opc;
 		}catch (InputMismatchException e){
 			System.out.println("La opción ha de ser un número !!");
+			
 			//para saltar lo escrito anteiormente
 			sc.nextLine();
 			//espera a que el usuario pulse intro

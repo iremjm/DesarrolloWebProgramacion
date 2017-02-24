@@ -89,13 +89,9 @@ public class GestorEntrena {
 		lstEntrena.add(ent);
 		guardarDatos();
 	}
-	public void modEntrena(Entrena old , Entrena neww){
-		for(int i = 0 ; i < lstEntrena.size();i++){
-			if(!old.equals(neww)){
-				lstEntrena.add(neww);
-				guardarDatos();
-			}
-		}
+	public void modEntrena(int index, Entrena ent){
+		lstEntrena.set(index, ent);
+		guardarDatos();
 	}
 	public void delEntrena( int index){
 		lstEntrena.remove(index);
@@ -111,7 +107,8 @@ public class GestorEntrena {
 		 for(int i = 0 ; i < lstEntrena.size();i++){
 			 Entrena e=lstEntrena.get(i);
 			 double kms=e.getKms();
-			 sumaKm=sumaKm+kms;  
+			 sumaKm=sumaKm+kms;
+			  
 		}
 		return sumaKm;
 	}

@@ -91,11 +91,11 @@ public class GestorEntrena {
 	}
 	public void modEntrena(Entrena old , Entrena neww){
 		for(int i = 0 ; i < lstEntrena.size();i++){
-			if(!old.equals(neww)){
-				lstEntrena.add(neww);
-				guardarDatos();
-			}
+		if(!old.equals(neww)){
+			lstEntrena.add(neww);
+			guardarDatos();
 		}
+		
 	}
 	public void delEntrena( int index){
 		lstEntrena.remove(index);

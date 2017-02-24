@@ -1,6 +1,5 @@
 package gui;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import model.GestorEntrena;
@@ -33,25 +32,9 @@ public class Programa {
 		
 	}
 	private static int leerOpcion() {
-		int opc;
-		try{//POSIBLE ERROR... Si no se insterta un número
-			opc=sc.nextInt();
-			sc.nextLine();
-			return opc;
-		}catch (InputMismatchException e){
-			System.out.println("La opción ha de ser un número !!");
-			//para saltar lo escrito anteiormente
-			sc.nextLine();
-			//espera a que el usuario pulse intro
-			pulsaintro();
-			return 0;
-		}//catch
-	}//leerOpcion
-	private static void pulsaintro() {
-			System.out.println("Pulse intro para continuar...");
-			//esperar que pulse intro
-			sc.nextLine();	
-		}	
+		
+		return 0;
+	}
 	private static void ejecutarOpcion() {
 	
 		

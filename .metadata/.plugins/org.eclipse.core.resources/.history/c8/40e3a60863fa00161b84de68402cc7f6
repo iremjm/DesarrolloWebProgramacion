@@ -1,0 +1,15 @@
+package gui;
+
+import java.util.Scanner;
+
+import model.GestorEntrena;
+
+public class Programa {
+
+	public static void main(String[] args) {
+	private static Scanner sc=new Scanner(System.in);
+	private static GestorEntrena entr=new GestorEntrena();
+
+	}
+
+}

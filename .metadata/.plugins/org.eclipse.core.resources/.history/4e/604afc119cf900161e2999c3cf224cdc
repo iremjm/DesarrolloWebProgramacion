@@ -1,7 +1,0 @@
-package model;
-
-import java.util.ArrayList;
-
-public class GestorEntrena {
-	private ArrayList<Entrena> lstTareas=new ArrayList<Entrena>();//el arraylist no tiene tamaño fijo,se modifica internamente.
-}

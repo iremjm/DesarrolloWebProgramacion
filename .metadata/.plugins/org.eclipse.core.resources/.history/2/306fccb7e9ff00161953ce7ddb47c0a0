@@ -17,10 +17,9 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class GestorPlantaciones {
-	private ArrayList<Plantacion> lstParcelas=new ArrayList<Plantacion>();
-	
+	private ArrayList<Plantacion> lstPlantacion=new ArrayList<Plantacion>();
 	private static final String FILENAME = "filename.txt";
-	private DateFormat fechaPlantacion = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
+	private DateFormat fechaPLantacion = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
 	private DateFormat fechaRecogida = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
 	private void leerParcelas() {
 		BufferedReader br = null;
@@ -46,7 +45,7 @@ public class GestorPlantaciones {
 				Plantacion plnt1=new Plantacion(parcela,fechaPlantacion,fechaRecogida ,especie 
 				,cantPlant,cantRec);
 							
-				lstParcelas.add(plnt1);
+				lstPlantacion.add(plnt1);
 			}
 		} catch (IOException e) {
 
@@ -79,7 +78,7 @@ public class GestorPlantaciones {
 
 			fw = new FileWriter(FILENAME);
 			bw = new BufferedWriter(fw);
-			for(Plantacion p:lstParcelas){
+			for(Plantacion p:lstPlantacion){
 				String datos=p.getParcela()+":"+p.getFechaPlantacion()+":"+
 						p.getFechaRecogida()+":"+p.getEspecie()+":"+p.getCantPlant()+":"+
 						p.getCantRec();
@@ -110,42 +109,33 @@ public class GestorPlantaciones {
 		}//guardarplantacion
 
 	public void Plantar(Plantacion plant){
-		lstParcelas.add(plant);
+		lstPlantacion.add(plant);
 		guardarParcelas();
 	}
 	public void recolectar(int parcela, Date fechaPlant, int cantRec){
-		  for(int i = 0 ; i < lstParcelas.size();i++){
-			Plantacion plant=lstParcelas.get(i);
-			if(plant.getParcela()==parcela && getFechaPlan(fechaPlantacion)){
-				plant.setCantRec(cantRec);
-			}
-			guardarParcelas();
-		  }
+		lstPlantacion.addAll(parcela, lstPlantacion);
+		guardarParcelas();
 	}
 	
-	private boolean getFechaPlan(DateFormat fechaPlantacion2) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 	public  Plantacion getPlantacion(int parcela, Date fechaPlant){
 		Plantacion plantacion= new Plantacion(parcela,fechaPlant); 
 		int indice;
-		indice=lstParcelas.indexOf(plantacion);
+		indice=lstPlantacion.indexOf(plantacion);
 
-		System.out.println(lstParcelas.get(indice).toString());
+		System.out.println(lstPlantacion.get(indice).toString());
 		return plantacion;
 		
 	}
 	public ArrayList <Plantacion> getPlantaciones() {
-		return lstParcelas;
+		return lstPlantacion;
 	}
 	
 		
 	
 	/*public String getPlantRecoger() {
 		Plantacion plantacion;
-		  for(int i = 0 ; i < lstParcelas.size();i++){
-			  plantacion= lstParcelas.get(i);
+		  for(int i = 0 ; i < lstPlantacion.size();i++){
+			  plantacion= lstPlantacion.get(i);
 			  if( plantacion.compareto()){
 				
 			  }

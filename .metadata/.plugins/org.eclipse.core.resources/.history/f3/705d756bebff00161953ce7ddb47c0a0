@@ -89,8 +89,7 @@ public class Plantacion implements Serializable{
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return  "Nº de parcela " + parcela + ":" +"Fecha de plantación " + sdf.format(fechaPlantacion) + ":" +
-				"Tipo de especie "+ especie;
+		return  parcela + ":" + sdf.format(fechaPlantacion) + ":" + especie;
 	}
 	
 	@Override

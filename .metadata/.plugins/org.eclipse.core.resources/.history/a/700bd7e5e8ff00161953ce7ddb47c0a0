@@ -15,7 +15,7 @@ public class Programa {
 	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
 	private static GestorPlantaciones gp=new GestorPlantaciones();
 	
-	public static void main(String[] args) throws Throwable {
+	public static void main(String[] args) {
 		int opc=0;
 		do{
 			//Mostrar menu
@@ -128,9 +128,8 @@ public class Programa {
 	}
 	private static void Recolectar() throws ParseException {
 		//Pedir datos 
-		Plantacion plnt1=pedirDatosPLantacion();
-		System.out.println("Ingresa la cantidad recolectada.");
+		Plantacion plnt1=pedirDatosPLantacion();	
 		//añadir al gestor
-		
+		gp.Plantar(plnt1);
 	}
 }//programa

@@ -13,8 +13,9 @@ public class Plantacion implements Serializable{
 	private String especie;
 	private int cantPlant;
 	private int cantRec;
-	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
-	//private DateFormat formaDate = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);Otra manera de usar las fechas 
+	
+	private DateFormat formaDate = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);//Una manera de usar las fechas 
+	//Otra está en programa.
 	public  Plantacion(int parcela,Date fechaPlantacion,Date fechaRecogida,String especie,int cantPlant){
 		setParcela(parcela);
 		setFechaPlantacion(fechaPlantacion);
@@ -89,8 +90,7 @@ public class Plantacion implements Serializable{
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return  "Nº de parcela " + parcela + ":" +"Fecha de plantación " + sdf.format(fechaPlantacion) + ":" +
-				"Tipo de especie "+ especie;
+		return  parcela + ":" + fechaPlantacion + ":" + especie;
 	}
 	
 	@Override

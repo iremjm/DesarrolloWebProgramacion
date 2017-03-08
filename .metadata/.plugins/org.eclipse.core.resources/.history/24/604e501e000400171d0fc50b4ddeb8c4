@@ -18,8 +18,8 @@ import java.awt.event.ActionEvent;
 public class JWBCalculadora extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtNumero1;
-	private JTextField txtNumero2;
+	private JTextField txtNum1;
+	private JTextField txtNum2;
 	private JTextField txtResultado;
 
 	/**

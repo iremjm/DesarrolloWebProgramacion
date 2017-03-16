@@ -22,6 +22,9 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 public class JWBCalculadora extends JFrame implements ItemListener{
 
@@ -58,7 +61,52 @@ public class JWBCalculadora extends JFrame implements ItemListener{
 	public JWBCalculadora() {
 		setTitle("SuperCalculator");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 400, 354);
+		setBounds(100, 100, 400, 321);
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu mnOperaciones = new JMenu("Operaciones");
+		menuBar.add(mnOperaciones);
+		
+		JMenuItem mntmSuma = new JMenuItem("Suma");
+		mntmSuma.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				calcularResultado("+");
+			}
+		});
+		mnOperaciones.add(mntmSuma);
+		
+		JMenuItem mntmResta = new JMenuItem("Resta");
+		mnOperaciones.add(mntmResta);
+		
+		JMenuItem mntmMultiplicacin = new JMenuItem("Producto");
+		mnOperaciones.add(mntmMultiplicacin);
+		
+		JMenuItem mntmDivisin = new JMenuItem("Divisi\u00F3n");
+		mnOperaciones.add(mntmDivisin);
+		
+		JMenu mnOtros = new JMenu("Otros");
+		mnOperaciones.add(mnOtros);
+		
+		JMenuItem mntmOpcin = new JMenuItem("Opci\u00F3n 1");
+		mnOtros.add(mntmOpcin);
+		
+		JMenuItem mntmOpcion = new JMenuItem("Opci\u00F3n 2");
+		mnOtros.add(mntmOpcion);
+		
+		JMenuItem mntmSalir = new JMenuItem("Salir");
+		mntmSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//JOptionPane.showMessageDialog(null, "¿Estás seguro que desea salir?");
+				int opcion = JOptionPane.showConfirmDialog(null, "¿Desea salir de la aplicación?",
+						"Seleccione una opción", JOptionPane.YES_NO_OPTION);
+				if(opcion==JOptionPane.YES_OPTION){
+					System.exit(0);		
+			}
+			}
+		});
+		menuBar.add(mntmSalir);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

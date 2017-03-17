@@ -16,6 +16,7 @@ public class GestorPlantaciones {
 	private ArrayList<Plantacion> lstParcelas= new ArrayList<Plantacion>();
 	private static final String FILENAME = "plantacion.txt";
 	private SimpleDateFormat sdf=new SimpleDateFormat("YYYY/MM/dd");
+	private static final Date HOY=new Date(System.currentTimeMillis());
 	//contructora
 	public GestorPlantaciones(){
 		leerParcelas();
@@ -136,10 +137,13 @@ public class GestorPlantaciones {
 		return lstParcelas;
 	}
 	public ArrayList<Plantacion> getPlanRecoger(){
-		for(int i=0;i<lstParcelas.size();i++){
-			Plantacion p=lstParcelas.get(i);
+		ArrayList<Plantacion> lstNoRec=new ArrayList<Plantacion>();
+		for(Plantacion p:lstParcelas){
+			if(p.getFechaRec().before(HOY)&& p.getCantRec()==0){
+				lstNoRec.add(p);
+			}
 		}
-		return lstParcelas;
+		return lstNoRec;
 	}
 }
 

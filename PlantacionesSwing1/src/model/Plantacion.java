@@ -27,6 +27,8 @@ public class Plantacion {
 		setParcela(parcela2);
 		setFechaPlan(fechaPlant);
 	}
+    
+
 
 	//getters y setters
 	public int getParcela() {

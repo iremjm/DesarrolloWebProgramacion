@@ -12,6 +12,7 @@ import model.Plantacion;
 
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.DefaultListModel;
@@ -144,6 +145,17 @@ public class PlantacionesUI extends JFrame {
 		contentPane.add(btnRecolectar);
 
 		JButton btnSalir = new JButton("Salir");
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			int opcion = JOptionPane.showConfirmDialog(null, "¿Desea salir de la aplicación?",
+			"Seleccione una opción", JOptionPane.YES_NO_OPTION);
+					if(opcion==JOptionPane.YES_OPTION){
+						System.exit(0);		
+				}
+				
+				btnCancelarClick();
+			}
+		});
 		btnSalir.setBounds(324, 251, 89, 23);
 		contentPane.add(btnSalir);
 
@@ -175,6 +187,9 @@ public class PlantacionesUI extends JFrame {
 	// Acceder a recolectar
 	private void btnRecolectarClick() {
 		int selected_index = listPlantaciones.getSelectedIndex();
+		if(selected_index<0){
+			 JOptionPane.showMessageDialog(null, "Debe seleccionar una plantación.");
+		}
 		Plantacion plantacion_seleccionada = (Plantacion) listPlantaciones.getModel().getElementAt(selected_index);
 		PlantacionesUIREc frmPlantRecol = new PlantacionesUIREc(this, gp, plantacion_seleccionada);
 		frmPlantRecol.setVisible(true);
@@ -193,11 +208,21 @@ public class PlantacionesUI extends JFrame {
 
 	// cargar la información de una plantación en las cajas de texto Al
 	// seleccionarlas.
-	private void mostrarDatos(Plantacion p) {
+	public void mostrarDatos(Plantacion p) {
+		
 		txtParcela.setText(String.valueOf(p.getParcela()));
 		txtFechaPlant.setText(sdf.format(p.getFechaPlan()));
 		txtEspecie.setText(p.getEspecie().toString());
 		txtCantPlant.setText(p.getCantPlant() + "");
+		txtCantRec.setText(p.getCantRec()+"");
+		txtFechaRec.setText(sdf.format(p.getFechaRec()));
 
+	}
+	public void btnCancelarClick(){
+		int opcion = JOptionPane.showConfirmDialog(null, "¿Desea salir de insertar plantación?",
+				"Seleccione una opción", JOptionPane.YES_NO_OPTION);
+					if(opcion==JOptionPane.YES_OPTION){
+					this.dispose();	
+					}		
 	}
 }

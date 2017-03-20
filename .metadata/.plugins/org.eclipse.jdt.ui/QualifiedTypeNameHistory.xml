@@ -37,4 +37,5 @@
 <fullyQualifiedTypeName name="datos.Plantacion"/>
 <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
 <fullyQualifiedTypeName name="model.Plantacion"/>
+<fullyQualifiedTypeName name="gui.PlantacionesUIREc"/>
 </qualifiedTypeNameHistroy>

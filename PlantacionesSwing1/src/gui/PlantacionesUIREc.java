@@ -19,6 +19,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JSlider;
+import javax.swing.SwingConstants;
 
 public class PlantacionesUIREc extends JFrame {
 
@@ -39,7 +41,7 @@ public class PlantacionesUIREc extends JFrame {
 		this.p_seleccionada = p_seleccionada;// que plantación está seleccionada
 		setTitle("Recolectar");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 371, 228);
+		setBounds(100, 100, 371, 311);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -78,7 +80,7 @@ public class PlantacionesUIREc extends JFrame {
 				btnAceptarClick();
 			}
 		});
-		buttonAceptRecol.setBounds(47, 145, 89, 23);
+		buttonAceptRecol.setBounds(52, 205, 89, 23);
 		contentPane.add(buttonAceptRecol);
 
 		JButton buttonCancelRecol = new JButton("Cancelar");
@@ -87,7 +89,7 @@ public class PlantacionesUIREc extends JFrame {
 				btnCancelarClick();
 			}
 		});
-		buttonCancelRecol.setBounds(194, 145, 89, 23);
+		buttonCancelRecol.setBounds(199, 205, 89, 23);
 		contentPane.add(buttonCancelRecol);
 
 		JLabel labelParcela = new JLabel("Parcela");
@@ -98,6 +100,10 @@ public class PlantacionesUIREc extends JFrame {
 		txtParcela.setBounds(183, 11, 115, 20);
 		contentPane.add(txtParcela);
 		txtParcela.setColumns(10);
+		
+		JSlider sliderCantRec = new JSlider();
+		sliderCantRec.setBounds(36, 150, 262, 23);
+		contentPane.add(sliderCantRec);
 
 	}
 

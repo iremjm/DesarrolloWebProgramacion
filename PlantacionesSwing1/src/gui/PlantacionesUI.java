@@ -23,16 +23,23 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
+import javax.swing.JSpinner;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.JSlider;
 
 public class PlantacionesUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtFechaPlant;
-	private JTextField txtCantPlant;
+	private JSpinner txtCantPlant;
 	private JTextField txtFechaRec;
 	private JTextField txtCantRec;
 	private JTextField txtEspecie;
 	private JTextField txtParcela;
+	private JSpinner spinnerCantPlant;
 	private JList listPlantaciones;
 	private GestorPlantaciones gp = new GestorPlantaciones();
 	private SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/dd");
@@ -59,67 +66,72 @@ public class PlantacionesUI extends JFrame {
 	public PlantacionesUI() {
 		setTitle("Plantaciones");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 439, 324);
+		setBounds(100, 100, 439, 347);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JLabel lblListado = new JLabel("Listado:");
-		lblListado.setBounds(21, 21, 46, 14);
+		lblListado.setBounds(21, 44, 46, 14);
 		contentPane.add(lblListado);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setBounds(21, 67, 148, 178);
+		contentPane.add(scrollPane);
+		
+				// JList listPlantaciones = new JList(gp.getPlantaciones().toArray());
+				listPlantaciones = new JList();
+				scrollPane.setViewportView(listPlantaciones);
+				listPlantaciones.addListSelectionListener(new ListSelectionListener() {
+					public void valueChanged(ListSelectionEvent arg0) {
+						// Para que aparezca una vez solamente el elemento
+						if (!arg0.getValueIsAdjusting()) {
+							Plantacion p=(Plantacion) listPlantaciones.getSelectedValue();
+							if (p!=null){
+								mostrarDatos(p);
+								// devulelve el elemento
+								System.out.println(listPlantaciones.getSelectedValue());
+							}
+						}
 
-		// JList listPlantaciones = new JList(gp.getPlantaciones().toArray());
-		listPlantaciones = new JList();
-		listPlantaciones.addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent arg0) {
-				// Para que aparezca una vez solamente el elemento
-				if (!arg0.getValueIsAdjusting()) {
-					mostrarDatos((Plantacion) listPlantaciones.getSelectedValue());
-					// devulelve el elemento
-					System.out.println(listPlantaciones.getSelectedValue());
-				}
-
-			}
-		});
-		listPlantaciones.setBounds(21, 44, 148, 178);
-		// pedir las plantaciones al gestor de plantaciones
-		actualizarListado(gp.getPlantaciones());
-		contentPane.add(listPlantaciones);
+					}
+				});
 
 		JLabel lblFechaPlantacion = new JLabel("Fecha Plantacion:");
-		lblFechaPlantacion.setBounds(179, 46, 127, 14);
+		lblFechaPlantacion.setBounds(179, 100, 127, 14);
 		contentPane.add(lblFechaPlantacion);
 
 		txtFechaPlant = new JTextField();
-		txtFechaPlant.setBounds(327, 44, 86, 20);
+		txtFechaPlant.setBounds(327, 98, 86, 20);
 		contentPane.add(txtFechaPlant);
 		txtFechaPlant.setColumns(10);
 
 		JLabel lblNewLabel = new JLabel("Cantidad Plantada:");
-		lblNewLabel.setBounds(179, 132, 127, 14);
+		lblNewLabel.setBounds(179, 159, 127, 14);
 		contentPane.add(lblNewLabel);
 
-		txtCantPlant = new JTextField();
-		txtCantPlant.setBounds(327, 124, 86, 20);
+		txtCantPlant = new JSpinner();
+		txtCantPlant.setBounds(327, 156, 86, 20);
+		txtCantPlant.setValue(300);
 		contentPane.add(txtCantPlant);
-		txtCantPlant.setColumns(10);
 
 		JLabel lblFechaRecogida = new JLabel("Fecha Recogida:");
-		lblFechaRecogida.setBounds(179, 171, 127, 14);
+		lblFechaRecogida.setBounds(179, 194, 127, 14);
 		contentPane.add(lblFechaRecogida);
 
 		txtFechaRec = new JTextField();
-		txtFechaRec.setBounds(327, 164, 86, 20);
+		txtFechaRec.setBounds(327, 187, 86, 20);
 		contentPane.add(txtFechaRec);
 		txtFechaRec.setColumns(10);
 
 		JLabel lblCantidadRecogida = new JLabel("Cantidad Recogida:");
-		lblCantidadRecogida.setBounds(179, 208, 127, 14);
+		lblCantidadRecogida.setBounds(179, 231, 127, 14);
 		contentPane.add(lblCantidadRecogida);
 
 		txtCantRec = new JTextField();
-		txtCantRec.setBounds(327, 195, 86, 20);
+		txtCantRec.setBounds(327, 218, 86, 20);
 		contentPane.add(txtCantRec);
 		txtCantRec.setColumns(10);
 
@@ -130,7 +142,7 @@ public class PlantacionesUI extends JFrame {
 				btnNuevoClick();
 			}
 		});
-		btnNuevo.setBounds(21, 252, 89, 23);
+		btnNuevo.setBounds(21, 275, 89, 23);
 		contentPane.add(btnNuevo);
 
 		// Botón recolectar
@@ -141,7 +153,7 @@ public class PlantacionesUI extends JFrame {
 			}
 		});
 
-		btnRecolectar.setBounds(163, 252, 100, 23);
+		btnRecolectar.setBounds(163, 275, 100, 23);
 		contentPane.add(btnRecolectar);
 
 		JButton btnSalir = new JButton("Salir");
@@ -156,28 +168,44 @@ public class PlantacionesUI extends JFrame {
 				btnCancelarClick();
 			}
 		});
-		btnSalir.setBounds(324, 251, 89, 23);
+		btnSalir.setBounds(324, 274, 89, 23);
 		contentPane.add(btnSalir);
 
 		JLabel lblEspecie = new JLabel("Especie:");
-		lblEspecie.setBounds(179, 93, 127, 14);
+		lblEspecie.setBounds(179, 134, 127, 14);
 		contentPane.add(lblEspecie);
 
 		txtEspecie = new JTextField();
-		txtEspecie.setBounds(327, 84, 86, 20);
+		txtEspecie.setBounds(327, 125, 86, 20);
 		contentPane.add(txtEspecie);
 		txtEspecie.setColumns(10);
 
 		JLabel lblParcela = new JLabel("Parcela:");
-		lblParcela.setBounds(179, 21, 127, 14);
+		lblParcela.setBounds(179, 75, 127, 14);
 		contentPane.add(lblParcela);
 
 		txtParcela = new JTextField();
-		txtParcela.setBounds(327, 15, 86, 20);
+		txtParcela.setBounds(327, 69, 86, 20);
 		contentPane.add(txtParcela);
 		txtParcela.setColumns(10);
+		
+		// pedir las plantaciones al gestor de plantaciones
+		actualizarListado(gp.getPlantaciones());
+		
 	}
-
+	// Nos suscribimos a cambios en el JSpinner
+	/*spinnerCantPlant.addChangeListener(new ChangeListener() {
+				@Override
+				public void stateChanged(ChangeEvent e) {
+					// Ponemos el valor del JSpinner en el JTextField
+					txtCantPlant.setText(spinnerCantPlant.getValue().toString());
+				}
+			
+			});
+	
+*/
+	
+	
 	// Acceder a Editar plantaciones
 	private void btnNuevoClick() {
 		PlantacionesEditUI frmPlantEdit = new PlantacionesEditUI(this, gp);
@@ -204,18 +232,21 @@ public class PlantacionesUI extends JFrame {
 		}
 		// pasar el model Jlist
 		listPlantaciones.setModel(dlm);
+		if (listPlantaciones.getModel().getSize()>0)
+			listPlantaciones.setSelectedIndex(0);
 	}
 
 	// cargar la información de una plantación en las cajas de texto Al
 	// seleccionarlas.
 	public void mostrarDatos(Plantacion p) {
 		
-		txtParcela.setText(String.valueOf(p.getParcela()));
+		txtParcela.setText(Integer.toString(p.getParcela()));
 		txtFechaPlant.setText(sdf.format(p.getFechaPlan()));
 		txtEspecie.setText(p.getEspecie().toString());
-		txtCantPlant.setText(p.getCantPlant() + "");
+		txtCantPlant.setValue(new Integer(p.getCantPlant()));
 		txtCantRec.setText(p.getCantRec()+"");
 		txtFechaRec.setText(sdf.format(p.getFechaRec()));
+		
 
 	}
 	public void btnCancelarClick(){

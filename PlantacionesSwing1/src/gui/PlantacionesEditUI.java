@@ -21,12 +21,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.event.ActionEvent;
+import javax.swing.JSpinner;
 
 public class PlantacionesEditUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtFechaPlant;
-	private JTextField txtCantPlant;
+	private JSpinner txtCantPlant;
 	private JTextField txtFechaRec;
 	private JTextField txtEspecie;
 	private JTextField txtParcela;
@@ -59,20 +60,20 @@ public class PlantacionesEditUI extends JFrame {
 			txtFechaPlant.setColumns(10);
 			
 			JLabel lblNewLabel = new JLabel("Cantidad Plantada:");
-			lblNewLabel.setBounds(21, 122, 100, 14);
+			lblNewLabel.setBounds(21, 100, 100, 14);
 			contentPane.add(lblNewLabel);
 			
-			txtCantPlant = new JTextField();
-			txtCantPlant.setBounds(160, 121, 86, 20);
+			txtCantPlant = new JSpinner();
+			txtCantPlant.setBounds(160, 97, 86, 20);
+			txtCantPlant.setValue(300);
 			contentPane.add(txtCantPlant);
-			txtCantPlant.setColumns(10);
 			
 			JLabel lblFechaRecogida = new JLabel("Fecha Recogida:");
-			lblFechaRecogida.setBounds(21, 161, 94, 14);
+			lblFechaRecogida.setBounds(21, 146, 94, 14);
 			contentPane.add(lblFechaRecogida);
 			
 			txtFechaRec = new JTextField();
-			txtFechaRec.setBounds(160, 161, 86, 20);
+			txtFechaRec.setBounds(160, 146, 86, 20);
 			contentPane.add(txtFechaRec);
 			txtFechaRec.setColumns(10);
 			
@@ -97,11 +98,11 @@ public class PlantacionesEditUI extends JFrame {
 			contentPane.add(btnCancelar);
 			
 			JLabel lblEspecie = new JLabel("Especie:");
-			lblEspecie.setBounds(21, 83, 65, 14);
+			lblEspecie.setBounds(21, 68, 65, 14);
 			contentPane.add(lblEspecie);
 			
 			txtEspecie = new JTextField();
-			txtEspecie.setBounds(160, 81, 86, 20);
+			txtEspecie.setBounds(160, 66, 86, 20);
 			contentPane.add(txtEspecie);
 			txtEspecie.setColumns(10);
 			
@@ -132,7 +133,7 @@ public class PlantacionesEditUI extends JFrame {
 				e.printStackTrace();
 			}
 			String especie=txtEspecie.getText();
-			int cantPlant=Integer.parseInt(txtCantPlant.getText());
+			int cantPlant= (int)txtCantPlant.getValue();
 			//crear una plantacion con datos
 			Plantacion p=new Plantacion(parcela,fechaPlan,fechaRec,especie,cantPlant);
 			//decir al gestor de plantaciones que añada la plantacion

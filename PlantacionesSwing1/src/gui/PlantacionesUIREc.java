@@ -10,7 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import model.GestorPlantaciones;
+
+import model.IGestorPlantaciones;
 import model.Plantacion;
 
 import javax.swing.JTextField;
@@ -28,13 +29,13 @@ public class PlantacionesUIREc extends JFrame {
 	private JTextField txtEspecie;
 	private JTextField txtFechaRec;
 	private JTextField txtCantidadREcol;
-	private GestorPlantaciones gp;
+	private IGestorPlantaciones gp;
 	private PlantacionesUI frmPrincipal;
 	private JTextField txtParcela;
 	private SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/dd");
 	private Plantacion p_seleccionada;
 
-	public PlantacionesUIREc(PlantacionesUI frmPrincipal, GestorPlantaciones gp, Plantacion p_seleccionada) {
+	public PlantacionesUIREc(PlantacionesUI frmPrincipal, IGestorPlantaciones gp, Plantacion p_seleccionada) {
 		// asiganr el mismo gestor de plantaciones
 		this.gp=gp;
 		this.frmPrincipal = frmPrincipal;

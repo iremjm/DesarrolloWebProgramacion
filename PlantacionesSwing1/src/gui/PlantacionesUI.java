@@ -7,7 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import model.GestorPlantaciones;
+import model.GestorPlantacionesFicheros;
+import model.IGestorPlantaciones;
 import model.Plantacion;
 
 import javax.swing.JLabel;
@@ -41,9 +42,8 @@ public class PlantacionesUI extends JFrame {
 	private JTextField txtParcela;
 	private JSpinner spinnerCantPlant;
 	private JList listPlantaciones;
-	private GestorPlantaciones gp = new GestorPlantaciones();
+	private IGestorPlantaciones gp = new GestorPlantacionesFicheros();
 	private SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/dd");
-
 	/**
 	 * Launch the application.
 	 */
@@ -59,7 +59,6 @@ public class PlantacionesUI extends JFrame {
 			}
 		});
 	}
-
 	/**
 	 * Create the frame.
 	 */
@@ -152,7 +151,6 @@ public class PlantacionesUI extends JFrame {
 				btnRecolectarClick();
 			}
 		});
-
 		btnRecolectar.setBounds(163, 275, 100, 23);
 		contentPane.add(btnRecolectar);
 
@@ -164,7 +162,6 @@ public class PlantacionesUI extends JFrame {
 					if(opcion==JOptionPane.YES_OPTION){
 						System.exit(0);		
 				}
-				
 				btnCancelarClick();
 			}
 		});
@@ -187,25 +184,10 @@ public class PlantacionesUI extends JFrame {
 		txtParcela = new JTextField();
 		txtParcela.setBounds(327, 69, 86, 20);
 		contentPane.add(txtParcela);
-		txtParcela.setColumns(10);
-		
+		txtParcela.setColumns(10);	
 		// pedir las plantaciones al gestor de plantaciones
-		actualizarListado(gp.getPlantaciones());
-		
+		actualizarListado(gp.getPlantaciones());	
 	}
-	// Nos suscribimos a cambios en el JSpinner
-	/*spinnerCantPlant.addChangeListener(new ChangeListener() {
-				@Override
-				public void stateChanged(ChangeEvent e) {
-					// Ponemos el valor del JSpinner en el JTextField
-					txtCantPlant.setText(spinnerCantPlant.getValue().toString());
-				}
-			
-			});
-	
-*/
-	
-	
 	// Acceder a Editar plantaciones
 	private void btnNuevoClick() {
 		PlantacionesEditUI frmPlantEdit = new PlantacionesEditUI(this, gp);
@@ -222,7 +204,6 @@ public class PlantacionesUI extends JFrame {
 		PlantacionesUIREc frmPlantRecol = new PlantacionesUIREc(this, gp, plantacion_seleccionada);
 		frmPlantRecol.setVisible(true);
 	}
-
 	// muestra los datos del parametro en el jList
 	public void actualizarListado(ArrayList<Plantacion> lstPlantas) {
 		DefaultListModel<Plantacion> dlm = new DefaultListModel<Plantacion>();
@@ -235,7 +216,6 @@ public class PlantacionesUI extends JFrame {
 		if (listPlantaciones.getModel().getSize()>0)
 			listPlantaciones.setSelectedIndex(0);
 	}
-
 	// cargar la información de una plantación en las cajas de texto Al
 	// seleccionarlas.
 	public void mostrarDatos(Plantacion p) {
@@ -246,8 +226,6 @@ public class PlantacionesUI extends JFrame {
 		txtCantPlant.setValue(new Integer(p.getCantPlant()));
 		txtCantRec.setText(p.getCantRec()+"");
 		txtFechaRec.setText(sdf.format(p.getFechaRec()));
-		
-
 	}
 	public void btnCancelarClick(){
 		int opcion = JOptionPane.showConfirmDialog(null, "¿Desea salir de insertar plantación?",

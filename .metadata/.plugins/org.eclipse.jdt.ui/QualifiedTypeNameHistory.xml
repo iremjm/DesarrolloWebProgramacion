@@ -35,9 +35,13 @@
 <fullyQualifiedTypeName name="java.sql.Date"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="datos.Plantacion"/>
-<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
 <fullyQualifiedTypeName name="model.Plantacion"/>
 <fullyQualifiedTypeName name="gui.PlantacionesUIREc"/>
 <fullyQualifiedTypeName name="javax.swing.event.ChangeEvent"/>
 <fullyQualifiedTypeName name="javax.swing.event.ChangeListener"/>
+<fullyQualifiedTypeName name="datos.GestorBDSQLite"/>
+<fullyQualifiedTypeName name="java.sql.ResultSet"/>
+<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
+<fullyQualifiedTypeName name="model.IGestorPlantaciones"/>
+<fullyQualifiedTypeName name="model.GestorPlantacionesFicheros"/>
 </qualifiedTypeNameHistroy>

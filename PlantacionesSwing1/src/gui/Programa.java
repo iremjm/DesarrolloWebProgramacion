@@ -9,8 +9,9 @@ import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.Scanner;
 
-import model.GestorPlantaciones;
-import model.Plantacion;
+import datos.Plantacion;
+import model.GestorPlantacionesFicheros;
+import model.IGestorPlantaciones;
 
 
 public class Programa {
@@ -19,7 +20,7 @@ public class Programa {
 	private static DateFormat formatoFechaPlan = new SimpleDateFormat("YYYY/MM/dd");
 	private static DateFormat formatoFechaRec = new SimpleDateFormat("YYYY/MM/dd");
 	private static int OPCION_SALIR=5;
-	private static GestorPlantaciones gp=new GestorPlantaciones();
+	private static GestorPlantacionesFicheros gp=new GestorPlantacionesFicheros();
 
 	public static void main(String[] args) throws ParseException {
 		// TODO Auto-generated method stub

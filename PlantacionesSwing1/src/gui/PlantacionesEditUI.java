@@ -13,10 +13,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import datos.Plantacion;
 import model.GestorPlantacionesFicheros;
 import model.IGestorPlantaciones;
 import model.GestorPlantacionesFicheros;
-import model.Plantacion;
 
 import java.awt.event.ActionListener;
 import java.text.ParseException;

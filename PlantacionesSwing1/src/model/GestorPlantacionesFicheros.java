@@ -11,6 +11,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import datos.Plantacion;
+
 public class GestorPlantacionesFicheros implements IGestorPlantaciones{
 	
 	private ArrayList<Plantacion> lstParcelas= new ArrayList<Plantacion>();
@@ -80,6 +82,16 @@ public class GestorPlantacionesFicheros implements IGestorPlantaciones{
 			}
 
 		}
+	}
+	@Override
+	public String[] getParcelas() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public String[] getEspecies() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	public void guardarParcelas(){
 		BufferedWriter bw = null;

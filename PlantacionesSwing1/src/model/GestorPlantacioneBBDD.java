@@ -11,22 +11,27 @@ import datos.GestorBDSQLite;
 import datos.Plantacion;
 
 public class GestorPlantacioneBBDD implements IGestorPlantaciones {
-	GestorBDSQLite gbd = new GestorBDSQLite(); 
-	SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/dd");
+	GestorBDSQLite gbd = new GestorBDSQLite();
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+
 	@Override
 	public void plantar(Plantacion plant) {
-	String sql = "INSERT INTO PLANTACIONES VALUES("+
-			"plant.geParcela()"+",'"+sdf.format(plant.getFechaPlan())+"'"
-			+sdf.format(plant.getFechaRec())+"','"+plant.getEspecie() +"',"
-			+plant.getCantPlant()+",0);";
-			gbd.updateSQL(sql);
-			
+		String sql = "INSERT INTO PLANTACIONES VALUES(" + plant.getParcela() + ",'" + sdf.format(plant.getFechaPlan())
+				+ "','" + sdf.format(plant.getFechaRec()) + "','" + plant.getEspecie() + "'," + plant.getCantPlant()
+				+ ",0);";
+		
+		gbd.updateSQL(sql);
+
 	}
 
 	@Override
-	public void recolectar(int parcela, Date fechaPlan, int cantRec) {
+	public void recolectar(int parcela, Date fechaRec, int cantRec) {
 		// TODO Auto-generated method stub
-
+		String sql = "UPDATE PLANTACIONES SET CANTREC = "+cantRec +
+				" WHERE PARCELA=" + parcela + 
+		        " AND FECHAREC='"+ sdf.format(fechaRec)+"';";
+		System.out.println(sql);
+		gbd.updateSQL(sql);
 	}
 
 	@Override
@@ -37,32 +42,33 @@ public class GestorPlantacioneBBDD implements IGestorPlantaciones {
 
 	@Override
 	public ArrayList<Plantacion> getPlantaciones() {
-		ArrayList<Plantacion> lstPlant= new ArrayList<Plantacion>();
-		String sql="SELECT * FROM PLANTACIONES";
-		//pedir a la base de datos todas las plnataciones.
-		ResultSet rs=gbd.executeSQL(sql);
+		ArrayList<Plantacion> lstPlant = new ArrayList<Plantacion>();
+		String sql = "SELECT * FROM PLANTACIONES";
+		// pedir a la base de datos todas las plnataciones.
+		ResultSet rs = gbd.executeSQL(sql);
 		try {
-			while(rs.next()){
-				int parcela=rs.getInt("PARCELA");
+			while (rs.next()) {
+				int parcela = rs.getInt("PARCELA");
 				Date fechaPlan = null;
 				try {
-					fechaPlan= sdf.parse(rs.getString("FECHAPLAN"));
+					fechaPlan = sdf.parse(rs.getString("FECHAPLAN"));
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				String especie=rs.getString("ESPECIE");
+				String especie = rs.getString("ESPECIE");
 				Date fechaRec = null;
 				try {
-					 fechaRec= sdf.parse(rs.getString("FECHAREC"));
+					sdf.parse("2017/04/06");
+					fechaRec = sdf.parse(rs.getString("FECHAREC"));
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				int cantPlant=rs.getInt("CANTPLANT");
-				int cantRec=rs.getInt("CANTREC");
-				//crear plantación
-				Plantacion plant= new Plantacion(parcela, fechaPlan, fechaRec, especie, cantPlant);
+				int cantPlant = rs.getInt("CANTPLANT");
+				int cantRec = rs.getInt("CANTREC");
+				// crear plantación
+				Plantacion plant = new Plantacion(parcela, fechaPlan, fechaRec, especie, cantPlant);
 				plant.setCantRec(cantRec);
 				lstPlant.add(plant);
 			}
@@ -70,8 +76,7 @@ public class GestorPlantacioneBBDD implements IGestorPlantaciones {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 		return lstPlant;
 	}
 

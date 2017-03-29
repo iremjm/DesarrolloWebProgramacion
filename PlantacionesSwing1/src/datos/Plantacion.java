@@ -13,7 +13,7 @@ public class Plantacion {
 	private String especie;
 	private int cantPlant;
 	private int cantRec;
-	private SimpleDateFormat sdf=new SimpleDateFormat("YYYY/MM/dd");
+	private SimpleDateFormat sdf=new SimpleDateFormat("yyyy/MM/dd");
 	//Constructora
 	public Plantacion (int parcela, Date fechaPlan, Date fechaRec, String especie, int cantPlan){
 		setParcela(parcela);

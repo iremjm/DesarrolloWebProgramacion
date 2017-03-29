@@ -31,7 +31,7 @@ public class PlantacionesUIREc extends JFrame {
 	private IGestorPlantaciones gp;
 	private PlantacionesUI frmPrincipal;
 	private JTextField txtParcela;
-	private SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/dd");
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 	private Plantacion p_seleccionada;
 
 	public PlantacionesUIREc(PlantacionesUI frmPrincipal, IGestorPlantaciones gp, Plantacion p_seleccionada) {

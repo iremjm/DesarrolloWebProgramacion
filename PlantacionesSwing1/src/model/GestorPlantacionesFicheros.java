@@ -17,7 +17,7 @@ public class GestorPlantacionesFicheros implements IGestorPlantaciones{
 	
 	private ArrayList<Plantacion> lstParcelas= new ArrayList<Plantacion>();
 	private static final String FILENAME = "plantacion.txt";
-	private SimpleDateFormat sdf=new SimpleDateFormat("YYYY/MM/dd");
+	private SimpleDateFormat sdf=new SimpleDateFormat("yyyy/MM/dd");
 	private static final Date HOY=new Date(System.currentTimeMillis());
 	//contructora
 	public GestorPlantacionesFicheros(){

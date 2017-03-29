@@ -98,7 +98,6 @@ public class PlantacionesUI extends JFrame {
 								System.out.println(listPlantaciones.getSelectedValue());
 							}
 						}
-
 					}
 				});
 

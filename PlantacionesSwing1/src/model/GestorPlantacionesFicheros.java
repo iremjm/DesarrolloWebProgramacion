@@ -127,6 +127,10 @@ public class GestorPlantacionesFicheros implements IGestorPlantaciones{
 		lstParcelas.add(p);
 		guardarParcelas();
 	}
+	public void  delPlant(Plantacion p){
+		lstParcelas.remove(p);
+		guardarParcelas();
+	}
 	public void recolectar(int parcela,Date fechaPlan,int cantRec){
 		for(int i=0;i<lstParcelas.size();i++){
 			Plantacion p=lstParcelas.get(i);
@@ -156,6 +160,11 @@ public class GestorPlantacionesFicheros implements IGestorPlantaciones{
 			}
 		}
 		return lstNoRec;
+	}
+	@Override
+	public void updateSQL() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

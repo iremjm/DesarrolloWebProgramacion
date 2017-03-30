@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import datos.GestorBDSQLite;
 import datos.Plantacion;
 
 import javax.swing.event.ListSelectionEvent;
@@ -47,6 +48,8 @@ public class PlantacionesUI extends JFrame {
 	private JList listPlantaciones;
 	private IGestorPlantaciones gp = new GestorPlantacioneBBDD();
 	private SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/dd");
+	private DefaultListModel<Plantacion> dlm = new DefaultListModel<Plantacion>();
+	GestorBDSQLite gbd = new GestorBDSQLite();
 	/**
 	 * Launch the application.
 	 */
@@ -76,7 +79,7 @@ public class PlantacionesUI extends JFrame {
 		contentPane.setLayout(null);
 
 		JLabel lblListado = new JLabel("Listado:");
-		lblListado.setBounds(21, 44, 46, 14);
+		lblListado.setBounds(21, 23, 46, 14);
 		contentPane.add(lblListado);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -84,7 +87,7 @@ public class PlantacionesUI extends JFrame {
 		scrollPane.setBounds(21, 67, 148, 178);
 		contentPane.add(scrollPane);
 		
-				// JList listPlantaciones = new JList(gp.getPlantaciones().toArray());
+				
 				listPlantaciones = new JList();
 				scrollPane.setViewportView(listPlantaciones);
 				listPlantaciones.addListSelectionListener(new ListSelectionListener() {
@@ -129,7 +132,7 @@ public class PlantacionesUI extends JFrame {
 		txtFechaRec.setColumns(10);
 
 		JLabel lblCantidadRecogida = new JLabel("Cantidad Recogida:");
-		lblCantidadRecogida.setBounds(219, 231, 127, 14);
+		lblCantidadRecogida.setBounds(219, 219, 127, 14);
 		contentPane.add(lblCantidadRecogida);
 
 		txtCantRec = new JTextField();
@@ -154,7 +157,7 @@ public class PlantacionesUI extends JFrame {
 				btnRecolectarClick();
 			}
 		});
-		btnRecolectar.setBounds(163, 275, 100, 23);
+		btnRecolectar.setBounds(120, 275, 100, 23);
 		contentPane.add(btnRecolectar);
 
 		JButton btnSalir = new JButton("Salir");
@@ -168,7 +171,7 @@ public class PlantacionesUI extends JFrame {
 				btnCancelarClick();
 			}
 		});
-		btnSalir.setBounds(324, 274, 89, 23);
+		btnSalir.setBounds(324, 275, 89, 23);
 		contentPane.add(btnSalir);
 
 		JLabel lblEspecie = new JLabel("Especie:");
@@ -188,6 +191,29 @@ public class PlantacionesUI extends JFrame {
 		txtParcela.setBounds(327, 69, 86, 20);
 		contentPane.add(txtParcela);
 		txtParcela.setColumns(10);	
+		
+		JButton btnDelete = new JButton("Eliminar");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				eliminarPlantacion();
+			}
+
+			private void eliminarPlantacion() {
+				int selected_index = listPlantaciones.getSelectedIndex();
+				if(selected_index<0){
+					 JOptionPane.showMessageDialog(null, "Debe seleccionar una plantación.");
+				}
+				Plantacion plantacion_seleccionada = (Plantacion) listPlantaciones.getModel().getElementAt(selected_index);
+				dlm.remove(selected_index);
+				String query = "DELETE FROM PLANTACIONES WHERE PARCELA= " + plantacion_seleccionada.getParcela() +
+						" AND FECHAPLAN= '"+ sdf.format(plantacion_seleccionada.getFechaPlan())+"';";
+				gbd.updateSQL(query);
+				
+
+			}
+		});
+		btnDelete.setBounds(225, 275, 89, 23);
+		contentPane.add(btnDelete);
 		// pedir las plantaciones al gestor de plantaciones
 		actualizarListado(gp.getPlantaciones());	
 	}
@@ -209,7 +235,7 @@ public class PlantacionesUI extends JFrame {
 	}
 	// muestra los datos del parametro en el jList
 	public void actualizarListado(ArrayList<Plantacion> lstPlantas) {
-		DefaultListModel<Plantacion> dlm = new DefaultListModel<Plantacion>();
+		
 		// añadir las plantaciones pasadas como parametro en el ArrayList
 		for (Plantacion p : lstPlantas) {
 			dlm.addElement(p);

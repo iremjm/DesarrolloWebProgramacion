@@ -11,6 +11,9 @@ public interface IGestorPlantaciones {
 	public Plantacion getPlantacion(int parcela, Date fechaPlan);
 	public ArrayList<Plantacion> getPlantaciones();
 	public ArrayList<Plantacion> getPlanRecoger();
+	public  void delPlant(Plantacion p);
 	public String[] getParcelas();
 	public String[] getEspecies();
+	
+	
 }

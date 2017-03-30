@@ -30,7 +30,6 @@ public class GestorPlantacioneBBDD implements IGestorPlantaciones {
 		String sql = "UPDATE PLANTACIONES SET CANTREC = "+cantRec +
 				" WHERE PARCELA=" + parcela + 
 		        " AND FECHAREC='"+ sdf.format(fechaRec)+"';";
-		System.out.println(sql);
 		gbd.updateSQL(sql);
 	}
 
@@ -38,6 +37,16 @@ public class GestorPlantacioneBBDD implements IGestorPlantaciones {
 	public Plantacion getPlantacion(int parcela, Date fechaPlan) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public  void delPlant(Plantacion p) {
+		Date fechaPlan = p.getFechaPlan();
+		int parcela = p.getParcela();
+		String sql = "DELETE FROM PLANTACIONES WHERE PARCELA= " + parcela +
+				" AND FECHAPLAN= '"+ sdf.format(fechaPlan)+"';";
+		System.out.println("QUERY: " + sql);
+		gbd.updateSQL(sql);
+		
 	}
 
 	@Override
@@ -96,6 +105,12 @@ public class GestorPlantacioneBBDD implements IGestorPlantaciones {
 	public String[] getEspecies() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void updateSQL() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

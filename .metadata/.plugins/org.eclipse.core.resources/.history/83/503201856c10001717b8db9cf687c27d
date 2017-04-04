@@ -1,8 +1,0 @@
-package model;
-
-public interface IGestorPlantaciones {
-	public void plantar(Plantacion p){
-		lstParcelas.add(p);
-		guardarParcelas();
-	}
-}

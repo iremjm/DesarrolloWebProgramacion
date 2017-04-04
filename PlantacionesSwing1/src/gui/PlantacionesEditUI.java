@@ -35,7 +35,7 @@ public class PlantacionesEditUI extends JFrame {
 	private JTextField txtParcela;
 	private IGestorPlantaciones gp;
 	private PlantacionesUI frmPrincipal;
-	private SimpleDateFormat sdf=new SimpleDateFormat("YYYY/MM/dd");
+	private SimpleDateFormat sdf=new SimpleDateFormat("yyyy/MM/dd");
 
 	/**
 	 * Create the frame.

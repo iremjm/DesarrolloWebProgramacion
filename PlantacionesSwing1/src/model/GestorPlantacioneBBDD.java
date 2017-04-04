@@ -19,7 +19,7 @@ public class GestorPlantacioneBBDD implements IGestorPlantaciones {
 		String sql = "INSERT INTO PLANTACIONES VALUES(" + plant.getParcela() + ",'" + sdf.format(plant.getFechaPlan())
 				+ "','" + sdf.format(plant.getFechaRec()) + "','" + plant.getEspecie() + "'," + plant.getCantPlant()
 				+ ",0);";
-		
+
 		gbd.updateSQL(sql);
 
 	}
@@ -27,9 +27,8 @@ public class GestorPlantacioneBBDD implements IGestorPlantaciones {
 	@Override
 	public void recolectar(int parcela, Date fechaRec, int cantRec) {
 		// TODO Auto-generated method stub
-		String sql = "UPDATE PLANTACIONES SET CANTREC = "+cantRec +
-				" WHERE PARCELA=" + parcela + 
-		        " AND FECHAREC='"+ sdf.format(fechaRec)+"';";
+		String sql = "UPDATE PLANTACIONES SET CANTREC = " + cantRec + " WHERE PARCELA=" + parcela + " AND FECHAREC='"
+				+ sdf.format(fechaRec) + "';";
 		gbd.updateSQL(sql);
 	}
 
@@ -39,14 +38,26 @@ public class GestorPlantacioneBBDD implements IGestorPlantaciones {
 		return null;
 	}
 
-	public  void delPlant(Plantacion p) {
+	public void delPlant(Plantacion p) {
 		Date fechaPlan = p.getFechaPlan();
 		int parcela = p.getParcela();
-		String sql = "DELETE FROM PLANTACIONES WHERE PARCELA= " + parcela +
-				" AND FECHAPLAN= '"+ sdf.format(fechaPlan)+"';";
-		System.out.println("QUERY: " + sql);
+		String sql = "DELETE FROM PLANTACIONES WHERE PARCELA= " + parcela + " AND FECHAPLAN= '" + sdf.format(fechaPlan)
+				+ "';";
 		gbd.updateSQL(sql);
-		
+
+	}
+
+	public void updatePlant(Plantacion plant){
+		Date fechaPlan = plant.getFechaPlan();
+		int parcela = plant.getParcela();
+		String sql = "UPDATE PLANTACIONES SET"
+		+ "PARCELA=" +plant.getParcela() + ",'" 
+		+ "FECHAPLAN="+sdf.format(plant.getFechaPlan())+ "','"
+		+ "FECHAREC="+sdf.format(plant.getFechaRec()) + "','"
+		+ "ESPECIE="+plant.getEspecie() + "',"
+		+ "CANTPLANT="+plant.getCantPlant()
+		+ "  WHERE PARCELA= " + parcela +" AND FECHAPLAN= '"+ sdf.format(fechaPlan)+"';";
+		gbd.updateSQL(sql);
 	}
 
 	@Override
@@ -106,11 +117,4 @@ public class GestorPlantacioneBBDD implements IGestorPlantaciones {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public void updateSQL() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

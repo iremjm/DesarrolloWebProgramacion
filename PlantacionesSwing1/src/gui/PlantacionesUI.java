@@ -19,8 +19,10 @@ import javax.swing.JButton;
 import javax.swing.DefaultListModel;
 import javax.swing.DropMode;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -47,7 +49,7 @@ public class PlantacionesUI extends JFrame {
 	private JSpinner spinnerCantPlant;
 	private JList listPlantaciones;
 	private IGestorPlantaciones gp = new GestorPlantacioneBBDD();
-	private SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/dd");
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 	private DefaultListModel<Plantacion> dlm = new DefaultListModel<Plantacion>();
 	GestorBDSQLite gbd = new GestorBDSQLite();
 	/**
@@ -72,7 +74,7 @@ public class PlantacionesUI extends JFrame {
 		
 		setTitle("Plantaciones");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 439, 347);
+		setBounds(100, 100, 439, 403);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -147,7 +149,7 @@ public class PlantacionesUI extends JFrame {
 				btnNuevoClick();
 			}
 		});
-		btnNuevo.setBounds(21, 275, 89, 23);
+		btnNuevo.setBounds(21, 274, 89, 23);
 		contentPane.add(btnNuevo);
 
 		// Botón recolectar
@@ -157,7 +159,7 @@ public class PlantacionesUI extends JFrame {
 				btnRecolectarClick();
 			}
 		});
-		btnRecolectar.setBounds(120, 275, 100, 23);
+		btnRecolectar.setBounds(120, 274, 100, 23);
 		contentPane.add(btnRecolectar);
 
 		JButton btnSalir = new JButton("Salir");
@@ -171,7 +173,7 @@ public class PlantacionesUI extends JFrame {
 				btnCancelarClick();
 			}
 		});
-		btnSalir.setBounds(324, 275, 89, 23);
+		btnSalir.setBounds(324, 274, 89, 23);
 		contentPane.add(btnSalir);
 
 		JLabel lblEspecie = new JLabel("Especie:");
@@ -212,10 +214,60 @@ public class PlantacionesUI extends JFrame {
 
 			}
 		});
-		btnDelete.setBounds(225, 275, 89, 23);
+		btnDelete.setBounds(225, 274, 89, 23);
 		contentPane.add(btnDelete);
+		
+		JButton btnUpdate = new JButton("Actualizar");
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//definimos los valores de las cajas de texto
+				int selected_index = listPlantaciones.getSelectedIndex();
+				if(selected_index<0){
+					 JOptionPane.showMessageDialog(null, "Debe seleccionar una plantación.");
+				}else{Plantacion plantacion_seleccionada = (Plantacion) listPlantaciones.getModel().getElementAt(selected_index);
+				int parcela= Integer.parseInt(txtParcela.getText());
+				try {
+					Date fechaPlant = sdf.parse(txtFechaPlant.getText());
+					plantacion_seleccionada.setFechaPlan(fechaPlant);
+				} catch (ParseException e1) {
+					
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				try {
+					Date fechaRec = sdf.parse(txtFechaRec.getText());
+					plantacion_seleccionada.setFechaRec(fechaRec);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				/*Actualizar los datos de la plantación*/
+				plantacion_seleccionada.setParcela(parcela);
+				//Coger los datos de la plantaación
+				plantacion_seleccionada.setEspecie(txtEspecie.getText());
+				plantacion_seleccionada.setCantPlant((int) txtCantPlant.getValue());
+				
+				
+				String especie = txtEspecie.getText();
+				int cantPlant = (Integer)txtCantPlant.getValue();
+				String query = "UPDATE PLANTACIONES SET PARCELA=" +plantacion_seleccionada.getParcela() + "," 
+						+ "FECHAPLAN='"+sdf.format(plantacion_seleccionada.getFechaPlan()) + "',"
+						+ "FECHAREC='"+sdf.format(plantacion_seleccionada.getFechaRec())+ "',"
+						+ "ESPECIE='"+ plantacion_seleccionada.getEspecie()+"',"
+						+ "CANTPLANT="+plantacion_seleccionada.getCantPlant()
+						+" WHERE PARCELA="+plantacion_seleccionada.getParcela() +" AND "
+						+ "FECHAPLAN='"+sdf.format(plantacion_seleccionada.getFechaPlan())+"'"
+						+";";
+				System.out.println(query);
+						gbd.updateSQL(query);
+				}
+			}
+		});
+		btnUpdate.setBounds(21, 308, 116, 23);
+		contentPane.add(btnUpdate);
 		// pedir las plantaciones al gestor de plantaciones
-		actualizarListado(gp.getPlantaciones());	
+	actualizarListado(gp.getPlantaciones());		
 	}
 	// Acceder a Editar plantaciones
 	private void btnNuevoClick() {
@@ -235,7 +287,7 @@ public class PlantacionesUI extends JFrame {
 	}
 	// muestra los datos del parametro en el jList
 	public void actualizarListado(ArrayList<Plantacion> lstPlantas) {
-		
+		dlm.clear();
 		// añadir las plantaciones pasadas como parametro en el ArrayList
 		for (Plantacion p : lstPlantas) {
 			dlm.addElement(p);

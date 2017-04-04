@@ -161,11 +161,7 @@ public class GestorPlantacionesFicheros implements IGestorPlantaciones{
 		}
 		return lstNoRec;
 	}
-	@Override
-	public void updateSQL() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 	
 }
 

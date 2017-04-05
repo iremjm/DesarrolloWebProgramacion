@@ -259,7 +259,7 @@ public class PlantacionesUI extends JFrame {
 						+" WHERE PARCELA="+plantacion_seleccionada.getParcela() +" AND "
 						+ "FECHAPLAN='"+sdf.format(plantacion_seleccionada.getFechaPlan())+"'"
 						+";";
-				System.out.println(query);
+				//System.out.println(query);
 						gbd.updateSQL(query);
 				}
 			}

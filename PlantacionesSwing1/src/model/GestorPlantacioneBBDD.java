@@ -7,11 +7,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import datos.GestorBDMySQL;
 import datos.GestorBDSQLite;
 import datos.Plantacion;
 
 public class GestorPlantacioneBBDD implements IGestorPlantaciones {
-	GestorBDSQLite gbd = new GestorBDSQLite();
+	//GestorBDSQLite gbd = new GestorBDSQLite();
+	GestorBDMySQL gbd = new GestorBDMySQL();
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 
 	@Override

@@ -13,28 +13,26 @@ import javax.swing.JOptionPane;
 
 public class GestorBDMySQL {
 
-	private static final String RUTA_BD=".\\plantaciones.mysql";
+	private static final String RUTA_BD=".\\plantaciones.sql";
 	private static final String CREATE_TABLE="CREATE TABLE "
 			+ "'tareas' ('ID' INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL , 'Titulo' TEXT, 'Hecho' INTEGER);";
 	private Connection cn=null;
 	private Statement st=null;
 	private static Connection Conexion;
-	 public static void main(String[] args) {
-		 GestorBDMySQL db = new GestorBDMySQL();
+	public GestorBDMySQL() {
 	        try {
-				db.MySQLConnection("root", "", "");
+				this.MySQLConnection("root", "root", "plantacion");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	    }
 	
-	
 	public void MySQLConnection(String user, String pass, String db_name) throws Exception {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + db_name, user, pass);
-            JOptionPane.showMessageDialog(null, "Se ha iniciado la conexión con el servidor de forma exitosa");
+            JOptionPane.showMessageDialog(null, "Se ha iniciado la conexión con el servidor de forma exitosa\n"+Conexion);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GestorBDMySQL.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -61,7 +59,7 @@ public class GestorBDMySQL {
 	            st.executeUpdate(Query);
 	            closeConnection();
 	            try {
-					MySQLConnection("root", "", name);
+					MySQLConnection("root", "root", name);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -74,16 +72,37 @@ public class GestorBDMySQL {
 	 public void createTable(String name) {
 	        try {
 	            String Query = "CREATE TABLE " + name + ""
-	                    + "(ID VARCHAR(25),Nombre VARCHAR(50), Apellido VARCHAR(50),"
-	                    + " Edad VARCHAR(3), Sexo VARCHAR(1))";
-
+	                    + "(PARCELA int(11) NOT NULL, FECHAPLAN text COLLATE utf8_bin NOT NULL,"
+	                    + "FECHAREC text COLLATE utf8_bin,ESPECIE text COLLATE utf8_bin,"
+	                    + "CANTPLANT int(11) DEFAULT NULL,CANTREC int(11) DEFAULT NULL)";
 	            Statement st = Conexion.createStatement();
 	            st.executeUpdate(Query);
 	JOptionPane.showMessageDialog(null, "Se ha creado la tabla " + name + " de forma exitosa");
 	        } catch (SQLException ex) {
-	            Logger.getLogger(MySQL.class.getName()).log(Level.SEVERE, null, ex);
+	            Logger.getLogger(GestorBDMySQL.class.getName()).log(Level.SEVERE, null, ex);
 	        }
-	    }
+	    }public ResultSet executeSQL(String sql) {
+			// TODO Auto-generated method stub
+			try {
+				Statement st = Conexion.createStatement();
+				return st.executeQuery(sql);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			}
+		}
+
+		public void updateSQL(String sql) {
+			// TODO Auto-generated method stub
+			try{
+				Statement st = Conexion.createStatement();
+				st.executeUpdate(sql);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	 
 	 
 }

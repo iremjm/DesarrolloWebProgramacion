@@ -39,6 +39,7 @@ import javax.swing.JSlider;
 
 public class PlantacionesUI extends JFrame {
 
+
 	private JPanel contentPane;
 	private JTextField txtFechaPlant;
 	private JSpinner txtCantPlant;
@@ -87,9 +88,7 @@ public class PlantacionesUI extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBounds(21, 67, 148, 178);
-		contentPane.add(scrollPane);
-		
-				
+		contentPane.add(scrollPane);				
 				listPlantaciones = new JList();
 				scrollPane.setViewportView(listPlantaciones);
 				listPlantaciones.addListSelectionListener(new ListSelectionListener() {

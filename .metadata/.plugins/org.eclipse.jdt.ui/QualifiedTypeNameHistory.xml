@@ -48,4 +48,5 @@
 <fullyQualifiedTypeName name="java.util.logging.Logger"/>
 <fullyQualifiedTypeName name="java.util.logging.Level"/>
 <fullyQualifiedTypeName name="datos.GestorBDMySQL"/>
+<fullyQualifiedTypeName name="java.awt.PageAttributes.MediaType"/>
 </qualifiedTypeNameHistroy>

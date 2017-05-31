@@ -1,0 +1,51 @@
+package datos;
+
+import java.util.ArrayList;
+
+import model.GestorBdSqlite;
+
+public class GestorContactos {
+private ArrayList<Contacto> lstContactos = new ArrayList<Contacto>();
+private	GestorBdSqlite gbd = new GestorBdSqlite();
+
+	public int getSizeContactos(){
+		return lstContactos.size();
+	}
+	public GestorContactos() {
+		// leer de la bbdd todos los contactos
+	}
+
+	public Contacto getContacto(int ind) {
+		// devuelve el contacto que se encuentra en el índice pasado como
+		// parámetro
+		return lstContactos.get(ind);
+	}
+
+	public void addContacto(Contacto c) {
+		// añade el contacto al arrayList y
+		lstContactos.add(c);
+		// a la bbdd
+		String sql = "INSERT INTO CONTACTOS VALUES('" + c.getNom() + "','" + c.getTlfno() + "'," + c.getEdad() + ");";
+		gbd.updateSQL(sql);
+	
+	}
+
+	public void modContacto(Contacto c, int ind) {
+		// modifica el contacto en la bbdd
+		String sql = "UPDATE CONCTATOS SET" + " NOM='" + c.getNom() + "'," + " TLFNO='" + c.getTlfno() + "'," + " edad="
+				+ c.getEdad() + " WHERE TLFNO= " + lstContactos.get(ind).getTlfno() + ";";
+		gbd.updateSQL(sql);
+		// modifica el contacto del indice pasado como parámetro en en arrayList
+		lstContactos.set(ind, c);
+
+	}
+
+	public void delContacto(int ind) {
+		// elimina el contacto que se encuentra en ese índice de la bbdd
+		String sql = "DELETE FROM CONTACTOS WHERE INDICE= " + lstContactos.get(ind).getTlfno()+ "';";
+		gbd.updateSQL(sql);
+		// y del arrayList
+		lstContactos.remove(ind);
+	}
+
+}

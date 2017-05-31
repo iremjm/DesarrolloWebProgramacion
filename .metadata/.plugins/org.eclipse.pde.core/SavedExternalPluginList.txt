@@ -1,4 +1,4 @@
-# List of external plug-in models previously loaded. Timestamp: 1493362958507
+# List of external plug-in models previously loaded. Timestamp: 1495693018046
 file:/D:/jose_mari_t/eclipse/plugins/ch.qos.logback.classic_1.0.7.v20121108-1250.jar
 file:/D:/jose_mari_t/eclipse/plugins/ch.qos.logback.core_1.0.7.v20121108-1250.jar
 file:/D:/jose_mari_t/eclipse/plugins/ch.qos.logback.slf4j_1.0.7.v201505121915.jar
@@ -19,6 +19,7 @@ file:/D:/jose_mari_t/eclipse/plugins/javax.inject_1.0.0.v20091030.jar
 file:/D:/jose_mari_t/eclipse/plugins/javax.servlet_3.1.0.v201410161800.jar
 file:/D:/jose_mari_t/eclipse/plugins/javax.servlet.jsp_2.2.0.v201112011158.jar
 file:/D:/jose_mari_t/eclipse/plugins/javax.xml_1.3.4.v201005080400.jar
+file:/D:/jose_mari_t/eclipse/plugins/nu.psnet.quickimage_1.0.3.2/
 file:/D:/jose_mari_t/eclipse/plugins/org.antlr.runtime_3.2.0.v201101311130.jar
 file:/D:/jose_mari_t/eclipse/plugins/org.apache.ant_1.9.6.v201510161327/
 file:/D:/jose_mari_t/eclipse/plugins/org.apache.batik.css_1.7.0.v201011041433.jar

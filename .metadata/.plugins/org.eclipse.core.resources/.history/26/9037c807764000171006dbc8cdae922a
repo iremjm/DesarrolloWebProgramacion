@@ -1,0 +1,141 @@
+package gui;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+import datos.GestorContactos;
+
+public class UIContactos extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField textNombre;
+	private JTextField textTelefono;
+	private JTextField textEdad;
+	private JTextField textIndice;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					UIContactos frame = new UIContactos();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public UIContactos() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 521, 328);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+
+		textNombre = new JTextField();
+		textNombre.setBounds(196, 56, 205, 20);
+		contentPane.add(textNombre);
+		textNombre.setColumns(10);
+
+		textTelefono = new JTextField();
+		textTelefono.setBounds(196, 98, 205, 20);
+		contentPane.add(textTelefono);
+		textTelefono.setColumns(10);
+
+		textEdad = new JTextField();
+		textEdad.setBounds(197, 140, 204, 20);
+		contentPane.add(textEdad);
+		textEdad.setColumns(10);
+
+		textIndice = new JTextField();
+		textIndice.setBounds(196, 184, 205, 20);
+		contentPane.add(textIndice);
+		textIndice.setColumns(10);
+		//la caja indice no es editable
+		textIndice.setEditable(false);
+
+		JLabel lblNombre = new JLabel("Nombre");
+		lblNombre.setBounds(112, 62, 46, 14);
+		contentPane.add(lblNombre);
+
+		JLabel lblTlefono = new JLabel("Tel\u00E9fono");
+		lblTlefono.setBounds(112, 107, 46, 14);
+		contentPane.add(lblTlefono);
+
+		JLabel lblEdad = new JLabel("Edad");
+		lblEdad.setBounds(112, 146, 46, 14);
+		contentPane.add(lblEdad);
+
+		JLabel lblIndice = new JLabel("Indice");
+		lblIndice.setBounds(112, 190, 46, 14);
+		contentPane.add(lblIndice);
+
+		JButton btnPrincipio = new JButton("|<");
+		btnPrincipio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnPrincipio.setBounds(29, 11, 89, 23);
+		contentPane.add(btnPrincipio);
+
+		JButton btnFinal = new JButton(">|");
+		btnFinal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnFinal.setBounds(383, 11, 89, 23);
+		contentPane.add(btnFinal);
+
+		JButton btnMenosUno = new JButton("<<");
+		btnMenosUno.setBounds(147, 11, 89, 23);
+		contentPane.add(btnMenosUno);
+
+		JButton btnMasUno = new JButton(">>");
+		btnMasUno.setBounds(265, 11, 89, 23);
+		contentPane.add(btnMasUno);
+
+		JButton btnNuevoContacto = new JButton("Nuevo");
+		btnNuevoContacto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				NuevoContactoClick();
+
+			}
+
+			public void NuevoContactoClick() {
+				// TODO Auto-generated method stub
+				textNombre.setText(null);
+				//coloca el cursor en el nombre
+				textNombre.requestFocus();
+				textTelefono.setText(null);
+				textEdad.setText(null);
+			}
+		});
+		btnNuevoContacto.setBounds(59, 247, 89, 23);
+		contentPane.add(btnNuevoContacto);
+
+		JButton btnGuardarContacto = new JButton("Guardar");
+		btnGuardarContacto.setBounds(207, 247, 89, 23);
+		contentPane.add(btnGuardarContacto);
+
+		JButton btnNewButton = new JButton("Eliminar");
+		btnNewButton.setBounds(355, 247, 89, 23);
+		contentPane.add(btnNewButton);
+	}
+}
